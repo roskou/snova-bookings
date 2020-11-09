@@ -1,0 +1,170 @@
+/* :: 9.0 Rooms Area CSS */
+.single-rooms-area {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 485px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  -webkit-transition-duration: 600ms;
+  transition-duration: 600ms; }
+  .single-rooms-area .bg-thumbnail {
+    position: absolute;
+    background-size: cover;
+    border-radius: 20px;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10; }
+  .single-rooms-area .price-from {
+    position: absolute;
+    z-index: 20;
+    top: 0px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    padding: 10px 15px;
+    background-color: #181818;
+    border: 2px solid #f08306;
+    display: inline-block;
+    margin-bottom: 0;
+    line-height: 1;
+    color: #ffffff;
+    font-size: 14px; }
+
+    .price-from-final {
+      position: absolute;
+      z-index: 20;
+      top: 10px;
+      left: 50%;
+      -webkit-transform: translateX(-45%);
+      transform: translateX(-45%);
+      padding: 10px 15px;
+      background-color: #181818;
+      border: 2px solid #f08306;
+      display: inline-block;
+      margin-bottom: 0;
+      line-height: 1;
+      color: #ffffff;
+      font-size: 25px; 
+      text-align: center;}
+
+  .single-rooms-area .rooms-text {
+    position: absolute;
+    
+    z-index: 30;
+    background-color: rgb(255, 250, 250);
+    padding: 0px 10px 20px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    height: 30%;
+    width: calc(100% - 0px);
+    /* border: 2px solid #f08306; */
+    text-align: center;
+    -webkit-transition-duration: 500ms;
+    transition-duration: 500ms; }
+    .single-rooms-area .rooms-text .line {
+      width: 85%;
+      height: 10px;
+      background-color: #f08306;
+      display: block;
+      margin: 0 auto 10px; }
+    .single-rooms-area .rooms-text h4 {
+      margin-top: 0px;
+      margin-bottom: 5px;
+      color: #747573; }
+      @media only screen and (max-width: 700px) {
+        .single-rooms-area .rooms-text h4 {
+          font-size: 22px; } }
+    .single-rooms-area .rooms-text p {
+      color:  #000000;
+      margin-bottom: 0; }
+
+    .single-rooms-area .book-room-btn {
+        position: absolute;
+        bottom: -25px;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%);
+        z-index: 50; }
+
+    .palatin-btn {
+        background-color: #f08306;
+        -webkit-transition-duration: 500ms;
+        transition-duration: 500ms;
+        position: relative;
+        z-index: 1;
+        display: inline-block;
+        min-width: 123px;
+        height: 53px;
+        color: #ffffff;
+        border: none;
+        border-radius: 0px;
+        padding: 0 0px;
+        font-size: 24px;
+        line-height: 53px;
+        text-transform: capitalize; }
+        .palatin-btn:hover, .palatin-btn:focus {
+          font-size: 16px;
+          background-color: #363636;
+          color: #ffffff; }
+        .palatin-btn.btn-2 {
+          background-color: #363636;
+          color: #ffffff; }
+          .palatin-btn.btn-2:hover, .palatin-btn.btn-2:focus {
+            font-size: 16px;
+            background-color: #f08306;
+            color: #ffffff; }
+        .palatin-btn.btn-3 {
+          background-color: #ffffff;
+          color: #f08306;
+          border: 2px solid #f08306;
+          height: 49px;
+          line-height: 48px; }
+          .palatin-btn.btn-3:hover, .palatin-btn.btn-3:focus {
+            font-size: 16px;
+            background-color: #f08306;
+            color: #ffffff; }
+   .single-rooms-area:hover .rooms-text, .single-rooms-area:focus .rooms-text h4 {
+    background-color: rgba(214, 160, 45, 0.4); color: aliceblue; border-radius: 0px;} 
+
+    .rooms-text:hover .line{
+      width: 0%;    
+    }
+
+.pagination-area {
+  position: relative;
+  z-index: 1;
+  text-align: center; }
+  .pagination-area .pagination {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center; }
+    .pagination-area .pagination .page-item .page-link {
+      border: 2px solid transparent;
+      background-color: transparent;
+      display: block;
+      padding: 5px;
+      margin-right: 10px;
+      color: #181818;
+      font-size: 14px; }
+      .pagination-area .pagination .page-item .page-link:hover, .pagination-area .pagination .page-item .page-link:focus {
+        color: #ffffff;
+        background-color: #616161;
+        border: 2px solid #f08306;
+        box-shadow: none; }
+    .pagination-area .pagination .page-item:first-child .page-link {
+      margin-left: 0;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0; }
+    .pagination-area .pagination .page-item:last-child .page-link {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0; }
+    .pagination-area .pagination .page-item.active .page-link {
+      color: #ffffff;
+      background-color: #616161;
+      border: 2px solid #f08306; }
