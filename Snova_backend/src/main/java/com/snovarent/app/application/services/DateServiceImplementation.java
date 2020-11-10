@@ -1,6 +1,6 @@
-package com.spacehotel.app.application.services;
+package com.snovarent.app.application.services;
 
-import com.spacehotel.app.application.domain.repositories.BookingRepository;
+import com.snovarent.app.application.domain.repositories.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
-package com.spacehotel.app.application.domain.DTO;
+package com.snovarent.app.application.domain.DTO;
 
-import com.spacehotel.app.application.models.RoomModel;
+import com.snovarent.app.application.models.RoomModel;
 
 import java.sql.Date;
 import java.util.List;

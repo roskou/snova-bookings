@@ -1,6 +1,6 @@
-package com.spacehotel.app.application.domain.repositories;
+package com.snovarent.app.application.domain.repositories;
 
-import com.spacehotel.app.application.domain.entities.RoomEntity;
+import com.snovarent.app.application.domain.entities.RoomEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

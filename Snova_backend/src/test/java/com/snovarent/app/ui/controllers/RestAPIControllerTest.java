@@ -1,4 +1,4 @@
-package com.spacehotel.app.ui.controllers;
+package com.snovarent.app.ui.controllers;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

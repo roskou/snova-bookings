@@ -1,6 +1,6 @@
-package com.spacehotel.app.application.services;
+package com.snovarent.app.application.services;
 
-import com.spacehotel.app.application.models.ClientModel;
+import com.snovarent.app.application.models.ClientModel;
 
 public interface ClientService {
     ClientModel showClientByID(long id);

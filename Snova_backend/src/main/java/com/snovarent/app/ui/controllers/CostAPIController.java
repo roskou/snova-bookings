@@ -1,24 +1,17 @@
 package com.snovarent.app.ui.controllers;
 
 
-import com.snovarent.app.application.domain.DTO.BookingDTO;
-import com.snovarent.app.application.domain.DTO.LoginDTO;
-import com.snovarent.app.application.domain.DTO.ViewRoomDetailDTO;
-import com.snovarent.app.application.models.BookingModel;
-import com.snovarent.app.application.models.ClientModel;
-import com.snovarent.app.application.models.RoomModel;
-import com.snovarent.app.application.models.RoomTypeModel;
 import com.snovarent.app.application.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.sql.Date;
-import java.util.List;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin (origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api")
-public class RestAPIController {
+public class CostAPIController {
 
     // Services & Variables used ---------------------------------------
     RoomService roomService;
@@ -26,82 +19,84 @@ public class RestAPIController {
     BookingService bookingService;
     DateService dateService;
     ClientService clientService;
+    CostService costService;
 
     // Constructor -----------------------------------------------------
     @Autowired
-    public RestAPIController(ClientService clientService, RoomService roomService, RoomTypeService roomTypeService, BookingService bookingService, DateService dateService) {
+    public CostAPIController(ClientService clientService, RoomService roomService, RoomTypeService roomTypeService, BookingService bookingService, DateService dateService,CostService costService) {
         this.roomService = roomService;
         this.roomTypeService = roomTypeService;
         this.bookingService = bookingService;
         this.dateService = dateService;
         this.clientService = clientService;
+        this.costService = costService;
     }
 
-    //Rooms ---------------------------------------------------------------------
-    @GetMapping("/flat")
-    List<RoomModel> showAllRooms() {
-        return roomService.showAllRooms();
+    //Calulate Cost ---------------------------------------------------------------------
+    @GetMapping("/cupon")
+    String cuponGenerator() {
+        return costService.cuponGenerator();
     }
 
-    @GetMapping("/flatAllByType/{tipo}")
-    List<ViewRoomDetailDTO> showAllRoomsByType(@PathVariable("tipo") long tipo) {
-        return roomService.showAllRoomsByType(tipo);
-    }
-
-    @GetMapping("/flatType")
-    List<RoomTypeModel> tiposHabitacion() { return roomTypeService.tiposHabitacion(); }
-
-    @GetMapping("/flatID/{id}")
-    ViewRoomDetailDTO showHabitacionByID(@PathVariable("id") long id) {
-        return new ViewRoomDetailDTO(roomService.showRoomByID(id), dateService.bookingDatesGeneratorByID(id)) ;
-    }
-
-
-    //Bookings Mappings-------------------------------------------------------------------
-
-    @GetMapping("/bookingnow")
-    List<BookingModel> showBookings() { return bookingService.showBookings();
-    }
-
-    @GetMapping("/date/{id}")
-    List<Date> bookingDatesGenerator(@PathVariable("id") long id){ return dateService.bookingDatesGeneratorByID(id);};
-
-    @DeleteMapping("/bookingnow/{id}")
-    public void deleteBooking(@PathVariable long id) {
-        bookingService.deleteBooking(id);
-    }
-
-    @PostMapping("/bookingnow")
-    public void saveBooking(@RequestBody BookingDTO newBooking) {
-        System.out.println(newBooking.toString());
-        RoomModel roomModel = roomService.showRoomByID(newBooking.getId_habitacion());
-        System.out.println("\n *** ROOM MODEL ***" + roomModel.toString());
-        ClientModel clientModel = clientService.showClientByID(newBooking.getCliente_id());
-        System.out.println("\n *** CLIENTE MODEL *** " + clientModel.toString());
-        BookingModel bookingModel = new BookingModel(newBooking.getFechaIn(), newBooking.getFechaOut(), newBooking.getPrecioTotal(), clientModel, roomModel );
-        System.out.println("\n *** RESERVA MODEL *** " + bookingModel.toString());
-    }
-    //Cost Mappings--------------------------------------------------------------------
-
-
-
-
-
-    //Login Mappings-------------------------------------------------------------------
-    @PostMapping("/login")
-    public ClientModel checkEmail(@RequestBody LoginDTO login) {
-
-        System.out.println("Login DATA:" + login.toString());
-
-        try {
-            ClientModel client = clientService.showClientByEmail(login.getEmail());
-            return client;
-
-        }catch (Throwable ex) {
-           return new ClientModel();
-        }
-
-    }
+//    @GetMapping("/flatAllByType/{tipo}")
+//    List<ViewRoomDetailDTO> showAllRoomsByType(@PathVariable("tipo") long tipo) {
+//        return roomService.showAllRoomsByType(tipo);
+//    }
+//
+//    @GetMapping("/flatType")
+//    List<RoomTypeModel> tiposHabitacion() { return roomTypeService.tiposHabitacion(); }
+//
+//    @GetMapping("/flatID/{id}")
+//    ViewRoomDetailDTO showHabitacionByID(@PathVariable("id") long id) {
+//        return new ViewRoomDetailDTO(roomService.showRoomByID(id), dateService.bookingDatesGeneratorByID(id)) ;
+//    }
+//
+//
+//    //Bookings Mappings-------------------------------------------------------------------
+//
+//    @GetMapping("/bookingnow")
+//    List<BookingModel> showBookings() { return bookingService.showBookings();
+//    }
+//
+//    @GetMapping("/date/{id}")
+//    List<Date> bookingDatesGenerator(@PathVariable("id") long id){ return dateService.bookingDatesGeneratorByID(id);};
+//
+//    @DeleteMapping("/bookingnow/{id}")
+//    public void deleteBooking(@PathVariable long id) {
+//        bookingService.deleteBooking(id);
+//    }
+//
+//    @PostMapping("/bookingnow")
+//    public void saveBooking(@RequestBody BookingDTO newBooking) {
+//        System.out.println(newBooking.toString());
+//        RoomModel roomModel = roomService.showRoomByID(newBooking.getId_habitacion());
+//        System.out.println("\n *** ROOM MODEL ***" + roomModel.toString());
+//        ClientModel clientModel = clientService.showClientByID(newBooking.getCliente_id());
+//        System.out.println("\n *** CLIENTE MODEL *** " + clientModel.toString());
+//        BookingModel bookingModel = new BookingModel(newBooking.getFechaIn(), newBooking.getFechaOut(), newBooking.getPrecioTotal(), clientModel, roomModel );
+//        System.out.println("\n *** RESERVA MODEL *** " + bookingModel.toString());
+//    }
+//    //Cost Mappings--------------------------------------------------------------------
+//
+//
+//
+//
+//
+//    //Login Mappings-------------------------------------------------------------------
+//    @PostMapping("/login")
+//    public ClientModel checkEmail(@RequestBody LoginDTO login) {
+//
+//        System.out.println("Login DATA:" + login.toString());
+//
+//        try {
+//            ClientModel client = clientService.showClientByEmail(login.getEmail());
+//            return client;
+//
+//        }catch (Throwable ex) {
+//           return new ClientModel();
+//        }
+//
+//    }
 
 }
 

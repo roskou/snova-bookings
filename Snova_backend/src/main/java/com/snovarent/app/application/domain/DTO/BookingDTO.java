@@ -1,4 +1,4 @@
-package com.spacehotel.app.application.domain.DTO;
+package com.snovarent.app.application.domain.DTO;
 
 import com.sun.istack.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;

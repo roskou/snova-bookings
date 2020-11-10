@@ -1,11 +1,11 @@
-package com.spacehotel.app.application.services;
+package com.snovarent.app.application.services;
 
 
-import com.spacehotel.app.application.domain.DTO.ViewRoomDetailDTO;
-import com.spacehotel.app.application.domain.entities.RoomEntity;
-import com.spacehotel.app.application.domain.repositories.RoomRepository;
-import com.spacehotel.app.application.factories.RoomFactory;
-import com.spacehotel.app.application.models.RoomModel;
+import com.snovarent.app.application.domain.entities.RoomEntity;
+import com.snovarent.app.application.factories.RoomFactory;
+import com.snovarent.app.application.domain.DTO.ViewRoomDetailDTO;
+import com.snovarent.app.application.domain.repositories.RoomRepository;
+import com.snovarent.app.application.models.RoomModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

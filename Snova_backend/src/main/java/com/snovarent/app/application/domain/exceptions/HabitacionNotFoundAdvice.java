@@ -1,4 +1,4 @@
-package com.spacehotel.app.application.domain.exceptions;
+package com.snovarent.app.application.domain.exceptions;
 
 import org.json.JSONException;
 import org.springframework.http.HttpStatus;

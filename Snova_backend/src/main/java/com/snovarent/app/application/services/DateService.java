@@ -1,4 +1,4 @@
-package com.spacehotel.app.application.services;
+package com.snovarent.app.application.services;
 
 import java.sql.Date;
 import java.util.List;

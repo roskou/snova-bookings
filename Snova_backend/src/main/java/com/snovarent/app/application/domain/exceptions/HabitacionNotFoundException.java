@@ -1,4 +1,4 @@
-package com.spacehotel.app.application.domain.exceptions;
+package com.snovarent.app.application.domain.exceptions;
 
 
     public class HabitacionNotFoundException extends RuntimeException {

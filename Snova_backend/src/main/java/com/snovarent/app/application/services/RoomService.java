@@ -1,7 +1,7 @@
-package com.spacehotel.app.application.services;
+package com.snovarent.app.application.services;
 
-import com.spacehotel.app.application.domain.DTO.ViewRoomDetailDTO;
-import com.spacehotel.app.application.models.RoomModel;
+import com.snovarent.app.application.domain.DTO.ViewRoomDetailDTO;
+import com.snovarent.app.application.models.RoomModel;
 import java.util.List;
 
 public interface RoomService {

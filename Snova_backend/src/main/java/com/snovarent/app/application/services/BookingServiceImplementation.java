@@ -1,10 +1,10 @@
-package com.spacehotel.app.application.services;
+package com.snovarent.app.application.services;
 
 
-import com.spacehotel.app.application.domain.entities.BookingEntity;
-import com.spacehotel.app.application.domain.repositories.BookingRepository;
-import com.spacehotel.app.application.factories.BookingFactory;
-import com.spacehotel.app.application.models.BookingModel;
+import com.snovarent.app.application.domain.entities.BookingEntity;
+import com.snovarent.app.application.factories.BookingFactory;
+import com.snovarent.app.application.domain.repositories.BookingRepository;
+import com.snovarent.app.application.models.BookingModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

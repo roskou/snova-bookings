@@ -1,8 +1,8 @@
-package com.spacehotel.app.application.factories;
+package com.snovarent.app.application.factories;
 
 
-import com.spacehotel.app.application.domain.entities.RoomTypeEntity;
-import com.spacehotel.app.application.models.RoomTypeModel;
+import com.snovarent.app.application.domain.entities.RoomTypeEntity;
+import com.snovarent.app.application.models.RoomTypeModel;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

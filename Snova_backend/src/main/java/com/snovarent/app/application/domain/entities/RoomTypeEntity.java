@@ -1,4 +1,4 @@
-package com.spacehotel.app.application.domain.entities;
+package com.snovarent.app.application.domain.entities;
 
 import javax.persistence.*;
 import java.util.List;

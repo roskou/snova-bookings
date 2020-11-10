@@ -1,14 +1,14 @@
-package com.spacehotel.app.ui.controllers;
+package com.snovarent.app.ui.controllers;
 
 
-import com.spacehotel.app.application.domain.DTO.BookingDTO;
-import com.spacehotel.app.application.domain.DTO.LoginDTO;
-import com.spacehotel.app.application.domain.DTO.ViewRoomDetailDTO;
-import com.spacehotel.app.application.models.BookingModel;
-import com.spacehotel.app.application.models.ClientModel;
-import com.spacehotel.app.application.models.RoomModel;
-import com.spacehotel.app.application.models.RoomTypeModel;
-import com.spacehotel.app.application.services.*;
+import com.snovarent.app.application.domain.DTO.BookingDTO;
+import com.snovarent.app.application.domain.DTO.LoginDTO;
+import com.snovarent.app.application.domain.DTO.ViewRoomDetailDTO;
+import com.snovarent.app.application.models.BookingModel;
+import com.snovarent.app.application.models.ClientModel;
+import com.snovarent.app.application.models.RoomModel;
+import com.snovarent.app.application.models.RoomTypeModel;
+import com.snovarent.app.application.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,7 +57,7 @@ public class RestAPIController {
     }
 
 
-    //Bookings-------------------------------------------------------------------
+    //Bookings Mappings-------------------------------------------------------------------
 
     @GetMapping("/bookingnow")
     List<BookingModel> showBookings() { return bookingService.showBookings();
@@ -81,13 +81,13 @@ public class RestAPIController {
         BookingModel bookingModel = new BookingModel(newBooking.getFechaIn(), newBooking.getFechaOut(), newBooking.getPrecioTotal(), clientModel, roomModel );
         System.out.println("\n *** RESERVA MODEL *** " + bookingModel.toString());
     }
+    //Cost Mappings--------------------------------------------------------------------
 
-//    @PostMapping("/login")
-//    public String checkEmail(@RequestBody BookingDTO newBooking) {
-//        String validation="";
-//        return validation; // esto me devuelve el response al front (objeto)
-//    }
 
+
+
+
+    //Login Mappings-------------------------------------------------------------------
     @PostMapping("/login")
     public ClientModel checkEmail(@RequestBody LoginDTO login) {
 

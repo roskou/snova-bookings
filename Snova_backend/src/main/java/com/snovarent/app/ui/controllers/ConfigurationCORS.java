@@ -1,4 +1,4 @@
-package com.spacehotel.app.ui.controllers;
+package com.snovarent.app.ui.controllers;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
         import org.springframework.context.annotation.Bean;

@@ -1,6 +1,6 @@
-package com.spacehotel.app.application.services;
+package com.snovarent.app.application.services;
 
-import com.spacehotel.app.application.models.RoomTypeModel;
+import com.snovarent.app.application.models.RoomTypeModel;
 import java.util.List;
 
 public interface RoomTypeService {

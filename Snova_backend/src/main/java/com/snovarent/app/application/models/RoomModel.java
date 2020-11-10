@@ -1,4 +1,4 @@
-package com.spacehotel.app.application.models;
+package com.snovarent.app.application.models;
 
 public class RoomModel {
     private long id;
