@@ -1,9 +1,8 @@
 package com.snovarent.app.application.services;
 
+import com.snovarent.app.application.domain.DTO.CostDTO;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
-import java.util.Calendar;
 import java.util.Random;
 
 //TODO Calculo de coste de reserva.
@@ -13,23 +12,20 @@ import java.util.Random;
 @Service
 public class CostServiceImplementation implements CostService {
 
-    public long CalculateCost(Date fechaIn, Date fechaOut, double precio, long days){
-        Calendar c = Calendar.getInstance();
-        c.setTime(fechaIn);
-        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-
-
-        return dayOfWeek;
-    }
-
-    @Override
-    public long CalculateCost(Date date1, long days) {
-        return 0;
-    }
+//    public long CalculateCost(Date fechaIn, Date fechaOut, double precio, long days){
+//        Calendar c = Calendar.getInstance();
+//        c.setTime(fechaIn);
+//        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+//
+//
+//        return dayOfWeek;
+//    }
 
     @Override
-    public double calculateTotalPrice(Date checkIn, Date checkOut, double pricePerNight) {
-        return 0;
+    public String calculateCost(CostDTO costData) {
+
+
+        return null;
     }
 
 

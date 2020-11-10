@@ -1,12 +1,11 @@
 package com.snovarent.app.ui.controllers;
 
 
+import com.snovarent.app.application.domain.DTO.CostDTO;
+
 import com.snovarent.app.application.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin (origins = "http://localhost:3000")
 @RestController
@@ -38,6 +37,20 @@ public class CostAPIController {
         return costService.cuponGenerator();
     }
 
+    @PostMapping("/cost")
+    public String costCalculate(@RequestBody CostDTO costData) {
+
+        System.out.println("Cost DATA:" + costData.toString());
+
+        try {
+            String cost = costService.calculateCost(costData);
+            return "OK";
+
+        }catch (Throwable ex) {
+            return "request failed";
+        }
+
+    }
 //    @GetMapping("/flatAllByType/{tipo}")
 //    List<ViewRoomDetailDTO> showAllRoomsByType(@PathVariable("tipo") long tipo) {
 //        return roomService.showAllRoomsByType(tipo);
