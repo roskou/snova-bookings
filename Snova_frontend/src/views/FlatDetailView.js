@@ -105,7 +105,11 @@ class FlatDetailView extends Component {
                         fgColor="#000000"
                         level="Q"
                         style={{ width: 128 }}
-                        value={this.state.room_details.descripcion}
+                        value="BEGIN:VEVENT^^J%
+                            SUMMARY:TARIBO EVENT^^J%
+                            DTSTART:20130913T130000Z^^J%
+                            DTEND:20130913T140000Z^^J%
+                            END:VEVENT"
                     />
 
                         <BookingForm priceFunc={this.updateBookPrice.bind(this)}

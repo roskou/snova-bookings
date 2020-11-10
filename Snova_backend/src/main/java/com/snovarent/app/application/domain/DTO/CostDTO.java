@@ -5,7 +5,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import java.sql.Date;
 
-public class costDTO {
+public class CostDTO {
 
     @NotNull
     @NotEmpty
@@ -17,11 +17,7 @@ public class costDTO {
 
     @NotNull
     @NotEmpty
-    public float precioTotal;
-
-    @NotNull
-    @NotEmpty
-    public long id_habitacion;
+    public float precio;
 
     @NotNull
     @NotEmpty

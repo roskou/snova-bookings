@@ -72,7 +72,7 @@ public class RestAPIController {
     }
 
     @PostMapping("/bookingnow")
-    public void saveBooking(@RequestBody BookingDTO newBooking) {
+    public void saveBooking(@RequestBody BookingDTO newBooking) { //TODO Meter en el servicioc
         System.out.println(newBooking.toString());
         RoomModel roomModel = roomService.showRoomByID(newBooking.getId_habitacion());
         System.out.println("\n *** ROOM MODEL ***" + roomModel.toString());
