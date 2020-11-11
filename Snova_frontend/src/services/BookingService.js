@@ -26,13 +26,35 @@ class BookingService{
         };
         await axios(config)
           .then((response) => {
-              console.log("OK")
+              console.log("DATOS GUARDADOS OK")
               resp = response.data
           })
           .catch(function (error) {
             console.log(error);
           });
         return resp;
+}
+
+async getPrice(costData){
+  let resp;
+  let config = {
+    method: 'post',
+    url: (RESERVA_API_BASE_URL + '/cost'),
+    headers: { 
+      'Access-Control-Allow-Origin':'*',
+      'Content-Type': 'application/json', 
+    },
+    data : costData
+  };
+  await axios(config)
+    .then((response) => {
+        console.log("CALCULO EN BACK 'OK'")
+        resp = response.data
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  return resp;
 }
     
 }

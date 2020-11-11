@@ -17,7 +17,7 @@ public class CostDTO {
 
     @NotNull
     @NotEmpty
-    public float precio;
+    public long precio;
 
     //Getters -------------------------------------------
 
@@ -29,7 +29,16 @@ public class CostDTO {
         return preCheckOut;
     }
 
-    public float getPrecio() {
+    public long getPrecio() {
         return precio;
+    }
+
+    @Override
+    public String toString() {
+        return "CostDTO{" +
+                "preCheckIn='" + preCheckIn + '\'' +
+                ", preCheckOut='" + preCheckOut + '\'' +
+                ", precio='" + precio + '\'' +
+                '}';
     }
 }

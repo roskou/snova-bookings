@@ -2,10 +2,12 @@ package com.snovarent.app.ui.controllers;
 
 
 import com.snovarent.app.application.domain.DTO.CostDTO;
-
+import com.snovarent.app.application.models.DiscountModel;
 import com.snovarent.app.application.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin (origins = "http://localhost:3000")
 @RestController
@@ -18,39 +20,31 @@ public class CostAPIController {
     BookingService bookingService;
     DateService dateService;
     ClientService clientService;
-    CostService costService;
+    DiscountService discountService;
 
     // Constructor -----------------------------------------------------
     @Autowired
-    public CostAPIController(ClientService clientService, RoomService roomService, RoomTypeService roomTypeService, BookingService bookingService, DateService dateService,CostService costService) {
+    public CostAPIController(ClientService clientService, RoomService roomService, RoomTypeService roomTypeService, BookingService bookingService, DateService dateService, DiscountService discountService) {
         this.roomService = roomService;
         this.roomTypeService = roomTypeService;
         this.bookingService = bookingService;
         this.dateService = dateService;
         this.clientService = clientService;
-        this.costService = costService;
+        this.discountService = discountService;
     }
 
     //Calulate Cost ---------------------------------------------------------------------
     @GetMapping("/cupon")
     String cuponGenerator() {
-        return costService.cuponGenerator();
+        return discountService.cuponGenerator();
     }
 
-    @PostMapping("/cost")
-    public String costCalculate(@RequestBody CostDTO costData) {
 
-        System.out.println("Cost DATA:" + costData.toString());
 
-        try {
-            String cost = costService.calculateCost(costData);
-            return "OK";
-
-        }catch (Throwable ex) {
-            return "request failed";
-        }
-
+    @GetMapping("/discounts")
+    List<DiscountModel> showAllDiscounts() { return discountService.showAllDiscounts();
     }
+
 //    @GetMapping("/flatAllByType/{tipo}")
 //    List<ViewRoomDetailDTO> showAllRoomsByType(@PathVariable("tipo") long tipo) {
 //        return roomService.showAllRoomsByType(tipo);
@@ -110,6 +104,20 @@ public class CostAPIController {
 //        }
 //
 //    }
+
+    @PostMapping("/cost")
+    float calculateCost(@RequestBody CostDTO costData) {
+
+        System.out.println("********* Cost DATA:" + costData.toString());
+
+
+        System.out.println("*/*/*/*/*/");
+        float cost = discountService.calculateCost(costData);
+        System.out.println("*/*/*/*/*/" + cost);
+        return cost;
+
+
+    }
 
 }
 

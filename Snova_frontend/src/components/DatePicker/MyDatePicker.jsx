@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import DatePicker, { registerLocale } from "react-datepicker";
 import es from 'date-fns/locale/es';
 import "react-datepicker/dist/react-datepicker.css";
+import BookingService from 'services/BookingService';
 //import "assets/css/datepicker.css";
 registerLocale('es', es)
 
@@ -9,6 +10,7 @@ registerLocale('es', es)
 
 // CSS Modules, react-datepicker-cssmodules.css
 // import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+
 
 function MyDatePicker(props) {
   const disabledDates = [];
@@ -25,14 +27,18 @@ function MyDatePicker(props) {
 
   }, []);
 
-  const onChange = datess => {
-    const [start, end] = datess;
+
+
+  const onChange = dates => {
+    const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
     if (start !== startDate) {
+      
     }
     else if (end) {
       props.onChange2(start, end)
+       
     }
 
   }

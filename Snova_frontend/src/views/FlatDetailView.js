@@ -52,6 +52,7 @@ class FlatDetailView extends Component {
 
         this.setState({ checkIn: checkI })
         this.setState({ checkOut: checkO })
+
         console.log("CheckIN en DETAILVIEW:", this.checkIn)
         console.log("CheckOUT en DETAILVIEW:", this.checkOut)
 
@@ -69,7 +70,7 @@ class FlatDetailView extends Component {
                 <div className="row ">
                     <div className="section-heading text-center">
 
-                        <h1>Do You Want This House... Book Now! {this.checkIn}</h1>
+                        <h2>Do You Want This House... Book Now! {this.state.price}</h2>
                         {/* <p>{this.state.checkIn2}</p>
                         <p>{this.state.checkOut2}</p> */}
 

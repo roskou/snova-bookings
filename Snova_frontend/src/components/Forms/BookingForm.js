@@ -36,6 +36,9 @@ function BookingForm(props) {
     const [lastFocus, setLastFocus] = React.useState(false);
     const [checkIn, setCheckIn] = React.useState(null);
     const [checkOut, setCheckOut] = React.useState(null);
+    const [priceB, setPriceB] = React.useState(null);
+
+
 
     React.useEffect(() => {
 
@@ -46,20 +49,37 @@ function BookingForm(props) {
 
 
     function calculatePrice() {
-        // aplicar logica
+        
+        let costData = {
+            'preCheckIn': checkIn,
+            'preCheckOut': checkOut,
+            'precio': props.habitacion.precio
+          }
+        BookingService.getPrice(costData).then(res => setPriceB(res))
+        
+        props.priceFunc(priceB)
+        console.log("Precio en BOOKINGFORM:" , priceB)  
+        console.log("CheckIN en BOOKINGFORM:", checkIn )
+        console.log("CheckOUT en BOOKINGFORM:", checkOut )
+        
 
-        props.priceFunc(5)
+      
         
     }
 
 
     function updateBookDates(checkIn, checkOut) {
+        
         setCheckIn(checkIn)
         setCheckOut(checkOut)
+    
+        
         props.detailDates(checkIn, checkOut)
+        
         console.log("CheckIN en BOOKINGFORM:", checkIn )
-        console.log("CheckOUT en BOOKINGFORM:", checkOut )
+        console.log("CheckOUT en BOOKINGFORM:", checkOut ) 
         console.log("CheckOUT en PROPS-BOOKINGFORM:", props )
+        
     }
 
 
@@ -67,6 +87,7 @@ function BookingForm(props) {
         console.log(event)
         console.log()
         event.preventDefault()
+        
         let bookingData = {
             'id_habitacion': props.habitacion.id,
             'cliente_id': props.client.id,
@@ -77,16 +98,16 @@ function BookingForm(props) {
 
         BookingService.saveBooking(bookingData)
         console.log("Saved Booking Data", bookingData)
-
-
     }
+
+
 
     return (
         <React.Fragment>
             <div className="text-center">
 
                 <Container>
-                    {/* <h3 className="title">Booking Confirmation</h3> */}
+                    {/* <h4 className="title"></h4> */}
 
                     <Row>
                         <Col>
@@ -155,6 +176,7 @@ function BookingForm(props) {
                             href="#pablo"
                             onClick={SaveBooking}
                             size="lg"
+                            
                         >
                             Save Booking
                   </Button>
@@ -169,7 +191,7 @@ function BookingForm(props) {
                             onClick={calculatePrice}
                             size="lg"
                         >
-                            prop test
+                            calculate
                   </Button>
                     </div>
 

@@ -69,7 +69,7 @@ export class LogUser extends React.Component {
     this.userEmail.current.value = ""
     console.log(this.userEmail.current.value);
     this.props.logOut({ title: '' })
-    sessionStorage.setItem('clientModel', JSON.stringify('{}'))
+    
     this.props.log.validUser = false;
 
   }
