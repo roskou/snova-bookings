@@ -16,7 +16,7 @@ export const log = (state = {}, action) => {
     }
   };
 
-  export const clientModel = (state = {}, action) => {
+  export const clientModel = (state = Boolean, action) => {
     switch (action.type) {
 
           

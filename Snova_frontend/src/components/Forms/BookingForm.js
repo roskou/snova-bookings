@@ -43,6 +43,7 @@ function BookingForm(props) {
         console.log("CheckIN en BOOKINGFORM:", checkIn )
         console.log("CheckOUT en BOOKINGFORM:", checkOut ) 
         console.log("CheckOUT en PROPS-BOOKINGFORM:", props )
+        console.log("CheckOUT en BUTTON STATUS:", props.buttonCheck )
 
     }
 
@@ -142,7 +143,7 @@ function BookingForm(props) {
                             href="#pablo"
                             onClick={SaveBooking}
                             size="lg"
-                            disabled= {props.buttonCheck.status_button}
+                            disabled= {!props.buttonCheck}
                             
                         >
                             Save Booking

@@ -24,7 +24,7 @@ export class LogUser extends React.Component {
     super(props);
     this.state = {
       client : [],
-      status_button : false,
+      status_button : Boolean,
   }
 
     this.userEmail = React.createRef();
