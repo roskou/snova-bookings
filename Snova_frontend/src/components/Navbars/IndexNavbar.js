@@ -1,12 +1,13 @@
 import React from "react";
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import FlatService from 'services/FlatService.js';
 // reactstrap components
 import {
   // Button, 
-  // DropdownToggle,
-  // DropdownMenu,
-  // DropdownItem,
-  // UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  UncontrolledDropdown,
   Collapse,
   NavbarBrand,
   Navbar,
@@ -16,11 +17,15 @@ import {
   Container,
   UncontrolledTooltip,
 } from "reactstrap";
-
 function IndexNavbar() {
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [collapseOpen, setCollapseOpen] = React.useState(false);
+  const [experiences, setExperiences] = React.useState([]);
   React.useEffect(() => {
+    FlatService.getFlatTypes().then((res) => {
+      console.log(res.data);
+      setExperiences(res.data);
+    });
     const updateNavbarColor = () => {
       if (
         document.documentElement.scrollTop > 299 ||
@@ -38,7 +43,7 @@ function IndexNavbar() {
     return function cleanup() {
       window.removeEventListener("scroll", updateNavbarColor);
     };
-  });
+  }, []);
   return (
     <>
       {collapseOpen ? (
@@ -57,8 +62,8 @@ function IndexNavbar() {
               href="https://github.com/orgs/Z-devs/teams/z-code-team"
               target="_blank"
               id="navbar-brand"
-            >          
-            <img src={require('assets/img/logo_small.png')} alt="" />
+            >
+              <img src={require('assets/img/logo_small.png')} alt="" />
             </NavbarBrand>
             <UncontrolledTooltip target="#navbar-brand">
               Designed by Taribo. Z coders Team
@@ -84,20 +89,34 @@ function IndexNavbar() {
           >
             <Nav navbar>
               <NavItem>
-                <NavLink
-                  href="#pablo"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document
-                      .getElementById("download-section")
-                      .scrollIntoView();
-                  }}
-                >
-                  <i className="now-ui-icons arrows-1_cloud-download-93"></i>
-                  <p>ya veremos</p>
+                <NavLink to="/index" tag={Link}>
+                  <i className="now-ui-icons tech_tv"></i>
+                  <p>Home</p>
                 </NavLink>
               </NavItem>
-
+              <UncontrolledDropdown nav>
+                <DropdownToggle
+                  caret
+                  color="default"
+                  href="#pablo"
+                  nav
+                  onClick={(e) => e.preventDefault()}
+                >
+                  <i className="now-ui-icons location_compass-05 mr-1"></i>
+                  <p>Experiences</p>
+                </DropdownToggle>
+                {experiences.length > 0 && <DropdownMenu>
+                  {experiences.map(e =>
+                    <DropdownItem  to={"listByType/" + e.id} tag={Link}>
+                      {/* <i className="now-ui-icons location_world mr-1"></i> */}
+                      {/* <i className="now-ui-icons business_bank mr-1"></i>
+                      <i className="now-ui-icons objects_spaceship mr-1"></i>
+                      <i className="now-ui-icons objects_support-17 mr-1"></i> */}
+                      {e.nombre}
+                    </DropdownItem>
+                  )}
+                </DropdownMenu>}
+              </UncontrolledDropdown>
               <NavItem>
                 <NavLink
                   href="#pablo"
@@ -108,34 +127,15 @@ function IndexNavbar() {
                       .scrollIntoView();
                   }}
                 >
-                  <i className="now-ui-icons arrows-1_cloud-download-93"></i>
-                  <p>Booking</p>
-                </NavLink>
-              </NavItem>
-
-              <NavItem>
-                <NavLink
-                  href="#pablo"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document
-                      .getElementById("download-section")
-                      .scrollIntoView();
-                  }}
-                >
-                  <i className="now-ui-icons arrows-1_cloud-download-93"></i>
+                  <i className="now-ui-icons users_circle-08"></i>
                   <p>Login</p>
                 </NavLink>
               </NavItem>
-
-              
             </Nav>
           </Collapse>
         </Container>
       </Navbar>
-
     </>
   );
 }
-
 export default IndexNavbar;
