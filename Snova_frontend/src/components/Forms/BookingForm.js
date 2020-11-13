@@ -63,7 +63,7 @@ function BookingForm(props) {
         BookingService.saveBooking(bookingData)
 
         console.log("Saved Booking Data", bookingData)
-        history.push("/thankyou");
+        history.push("/thanks");
     }
 
 

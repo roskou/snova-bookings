@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import FlatService from 'services/FlatService.js';
 // reactstrap components
+// reactstrap components
 import {
   // Button, 
   DropdownToggle,
@@ -17,8 +18,8 @@ import {
   Container,
   UncontrolledTooltip,
 } from "reactstrap";
-function IndexNavbar() {
-  const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
+function IndexNavbar(props) {
+  const [navbarColor, setNavbarColor] = React.useState(props.transparent);
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   const [experiences, setExperiences] = React.useState([]);
   React.useEffect(() => {
@@ -36,7 +37,7 @@ function IndexNavbar() {
         document.documentElement.scrollTop < 300 ||
         document.body.scrollTop < 300
       ) {
-        setNavbarColor("navbar-transparent");
+        setNavbarColor(props.transparent);
       }
     };
     window.addEventListener("scroll", updateNavbarColor);

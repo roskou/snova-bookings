@@ -11,6 +11,7 @@ import "assets/demo/nucleo-icons-page-styles.css?v=1.4.0";
 import Index from "views/Index.js";
 import FlatDetailView from "views/FlatDetailView.js";
 import SearchView from "views/SearchView";
+import ThankYouPage from "views/ThankYouPage";
 // Redux Imports
 import { Provider } from 'react-redux';
 import { store } from 'redux/store.js';
@@ -29,6 +30,10 @@ ReactDOM.render(
           <Route
             path="/listByType/:tipo"
             render={(props) => <SearchView {...props} />}
+          />
+           <Route
+            path="/thanks/"
+            render={(props) => <ThankYouPage {...props} />}
           />
           <Redirect to="/index" />
           <Redirect from="/" to="/index" />
