@@ -2,6 +2,7 @@ import React from "react";
 import BookingService from "services/BookingService.js"
 import MyDatePicker from "components/DatePicker/MyDatePicker";
 import { connect } from 'react-redux'
+import { useHistory } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -21,9 +22,8 @@ function BookingForm(props) {
     const [lastFocus, setLastFocus] = React.useState(false);
     const [checkIn, setCheckIn] = React.useState(null);
     const [checkOut, setCheckOut] = React.useState(null);
-    const [flag, setFlag] = React.useState(false);
+    const history = useHistory()
     
-
     React.useEffect(() => {
 
 
@@ -48,8 +48,7 @@ function BookingForm(props) {
     }
 
     function SaveBooking(event) {
-        console.log(event)
-        console.log()
+
         event.preventDefault()
         
         let bookingData = {
@@ -58,15 +57,15 @@ function BookingForm(props) {
             'fechaIn': checkIn,
             'fechaOut': checkOut,
             'precioTotal': props.habitacion.precio,
+            'cupon': null,
         }
 
         BookingService.saveBooking(bookingData)
+
         console.log("Saved Booking Data", bookingData)
+        history.push("/thankyou");
     }
 
-        function sendUserLoggedState(flag){
-        setFlag(flag)
-        }
 
     return (
         <React.Fragment>
