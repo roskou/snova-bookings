@@ -21,6 +21,7 @@ const SearchForm = (props) => {
   }
   function resetFilter() {
     setFilter(initialFilter);
+    props.onChangeFilter(initialFilter);
   }
   return (
     <div className='filter'>

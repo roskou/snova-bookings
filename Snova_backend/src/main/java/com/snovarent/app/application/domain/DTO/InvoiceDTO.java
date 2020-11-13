@@ -3,53 +3,46 @@ package com.snovarent.app.application.domain.DTO;
 import com.sun.istack.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class InvoiceDTO {
 
     @NotNull
     @NotEmpty
-    public String description;
+    public double finalPrice;
 
-    @NotNull
-    @NotEmpty
-    public long days;
+    public List<InvoiceRowDTO> invoiceRows;
 
-    @NotNull
-    @NotEmpty
-    public double price;
+    public double additionalCharges;
 
-    @NotNull
-    @NotEmpty
-    public TotalsDTO totalsDTO;
-
-    public InvoiceDTO(String description, long days, double discount, double price) {
-        this.description = description;
-        this.days = days;
-        this.price = price;
+    public InvoiceDTO() {
+        this.finalPrice = 0;
+        this.invoiceRows = new ArrayList<>();
+        this.additionalCharges = 0;
     }
 
-    public String getDescription() {
-        return description;
+    public double getFinalPrice() {
+        return finalPrice;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setFinalPrice(double finalPrice) {
+        this.finalPrice = finalPrice;
     }
 
-    public long getDays() {
-        return days;
+    public List<InvoiceRowDTO> getInvoice() {
+        return invoiceRows;
     }
 
-
-    public void setDays(long days) {
-        this.days = days;
+    public void setInvoice(List<InvoiceRowDTO> invoiceRows) {
+        this.invoiceRows = invoiceRows;
     }
 
-    public double getPrice() {
-        return price;
+    public double getAdditionalCharges() {
+        return additionalCharges;
     }
 
-    public void setPrice(long price) {
-        this.price = price;
+    public void setAdditionalCharges(double additionalCharges) {
+        this.additionalCharges = additionalCharges;
     }
 }
-

@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import Particles from 'react-particles-js';
 
@@ -6,50 +7,61 @@ class ThankYouPage extends Component {
         super(props)
 
         this.state = {
-            
+
             value: "",
             filterData: [],
             flats: []
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         console.log("Thank you Page");
     }
 
     render() {
 
-        return(
-            <div className="text-center">
+        return (
 
-                <h1>Thank for Booking!</h1>
-<Particles
-    params={{
-	    "particles": {
-	        "number": {
-	            "value": 50
-	        },
-	        "size": {
-	            "value": 3
-	        }
-	    },
-	    "interactivity": {
-	        "events": {
-	            "onhover": {
-	                "enable": true,
-	                "mode": "repulse"
-	            }
-	        }
-	    }
-	}} />
+            <>
+            
+                <div class="page-header clear-filter" filter-color="yellow">
+                    
+                    <div class="page-header-image" data-parallax="true"  style={{ backgroundImage: "url(" + require("assets/img/ironman.png") + ")" }}>
+                    <Particles
+                    params={{
+                        "particles": {
+                            "number": {
+                                "value": 50
+                            },
+                            "size": {
+                                "value": 3
+                            }
+                        },
+                        "interactivity": {
+                            "events": {
+                                "onhover": {
+                                    "enable": true,
+                                    "mode": "repulse"
+                                }
+                            }
+                        }
+                    }} />
+                    </div>
+                    <div class="container">
+                        <div class="content-center brand">
 
-
-</div>
+                            <h1 class="h1-seo">Now UI Kit.</h1>
+                            <h3>A beautiful Bootstrap 4 UI kit. Yours free.</h3>
+                        </div>
+                    </div>
+                </div>
+                
+            </>
 
         )
 
     }
-    
+
 }
 
 export default ThankYouPage

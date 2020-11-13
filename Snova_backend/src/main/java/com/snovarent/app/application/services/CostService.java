@@ -16,7 +16,7 @@ public interface CostService {
     List<CostModel> showAllDiscounts();
 //    List<CostModel> test(CostDTO costData);
     long getDaysToApplyOffer(Date checkIn, Date checkOut, Date startOffer, Date endOffer);
-    List<InvoiceDTO> calculateFinalPrice(CostDTO costData);
+    InvoiceDTO getInvoice(CostDTO costData);
 
 
 }

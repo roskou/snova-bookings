@@ -53,16 +53,9 @@ public class CostAPIController {
     List<CostModel> showAllDiscounts() { return costService.showAllDiscounts();
     }
 
-    @PostMapping("/cost")
-    List<InvoiceDTO> calculateCost(@RequestBody CostDTO costData) {
-
-        System.out.println("*/*/*/*/*/");
-        List<InvoiceDTO> cost = costService.calculateFinalPrice(costData);
-        System.out.println("*/*/*/*/*/");
-        return cost;
-
-
+    @PostMapping("/invoice")
+    InvoiceDTO calculateCost(@RequestBody CostDTO costData) {
+        return costService.getInvoice(costData);
     }
-
 }
 

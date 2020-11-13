@@ -2,6 +2,7 @@ package com.snovarent.app.application.services;
 
 import com.snovarent.app.application.domain.DTO.CostDTO;
 import com.snovarent.app.application.domain.DTO.InvoiceDTO;
+import com.snovarent.app.application.domain.DTO.InvoiceRowDTO;
 import com.snovarent.app.application.domain.entities.CostEntity;
 import com.snovarent.app.application.domain.entities.RoomEntity;
 import com.snovarent.app.application.domain.repositories.BookingRepository;
@@ -13,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -47,77 +47,48 @@ public class CostServiceImplementation implements CostService {
     }
 
     @Override
-    public List<InvoiceDTO> calculateFinalPrice(CostDTO costData) {
-
-    //Queries
+    public InvoiceDTO getInvoice(CostDTO costData) {
+    //Entities
         List<CostEntity> costEntities = costRepository.test(Date.valueOf(costData.getPreCheckIn()), Date.valueOf(costData.getPreCheckOut()));
         RoomEntity roomEntity = roomRepository.findById(costData.idRoom);
         long clientBookings = bookingRepository.countByCliente_Id(costData.getClient());
-        List<InvoiceDTO> invoice = new ArrayList<>();
+        int pax = roomEntity.getNumpersonas();
 
-    //vars
-          Date start = Date.valueOf(costData.getPreCheckIn());
-          Date end = Date.valueOf(costData.getPreCheckOut());
-          int pax= (int) costData.getNpax();
-        float fidelityDiscount = 0;
-        float paxDiscount = 0;
-          float flatPrice = roomEntity.getPrecio();
-        float totalPrice=0;
-        float totalDiscount=0;
-        float sessonPrice=0;
-        float eventPrice=0;
-          int eventDays=0;
+        Date start = Date.valueOf(costData.getPreCheckIn());
+        Date end = Date.valueOf(costData.getPreCheckOut());
+
+        long totalDays = getDaysBetweenTwoDates(start, end);
+        double defaultFlatPrice = totalDays * roomEntity.getPrecio();
+
+        InvoiceDTO invoice = new InvoiceDTO();
+        invoice.invoiceRows.add(new InvoiceRowDTO("Default Price", totalDays, defaultFlatPrice));
 
 
+        double additionalCharges = 0;
 
-        System.out.println("| CheckIn: " + start + "  ##  CheckOut: " + end + " |");
-
-    //iterate de offers
         for (CostEntity costEntity : costEntities) {
-
-            long temp = getDaysToApplyOffer(start, end, costEntity.getStarDate(),costEntity.getEndDate()); //definimos cuantos dias hay para cada tipo de negocio
-            float factor = costEntity.getFactor();
-            int npax = costEntity.getNpax();
-            int nbookings = costEntity.getNbookings();
-
-            switch (costEntity.getAction()){
-
-                case 1: //seasson Charge
-                    sessonPrice += flatPrice * factor;
-                    System.out.println( " ** " + costEntity.getDescription() + " || Dias: " + temp + " || " + "Tipo: " + costEntity.getAction() + " || " + (flatPrice * costEntity.getFactor()) + " || " + flatPrice);
-                    break;
-
-                case 2: //Especial event Charge
-                    eventPrice += flatPrice * factor;
-
-                    System.out.println( " ** " + costEntity.getDescription() + " || Dias: " + temp + " || " + "Tipo: " + costEntity.getAction() + " || " + (flatPrice * costEntity.getFactor()) + " || " + flatPrice);
-                    break;
-
-                case 3: //Especial Discount
-                    if (pax >= npax && nbookings == 0){
-                        paxDiscount = factor;
-                    }
+            long daysToApplyDiscount = getDaysToApplyOffer(start, end, costEntity.getStarDate(),costEntity.getEndDate()); //definimos cuantos dias hay para cada tipo de negocio
+            float currentCharges = 0;
 
 
-                    if (clientBookings >= nbookings && npax == 0) {
-                        fidelityDiscount = factor;
-                    }
+            if (costEntity.getAction() == 3) {
+                int npaxdiscount = costEntity.getNpax();
+                int nbookings = costEntity.getNbookings();
 
-                    break;
-
-
-                default:
-                    sessonPrice += flatPrice;
+                if ((pax >= npaxdiscount && nbookings == 0) || (clientBookings >= nbookings && npaxdiscount == 0)) {
+                    currentCharges = roomEntity.getPrecio() * costEntity.getFactor() * daysToApplyDiscount;
+                    invoice.invoiceRows.add(new InvoiceRowDTO(costEntity.getDescription(), daysToApplyDiscount, currentCharges));
+                }
             }
 
-            totalDiscount= paxDiscount + fidelityDiscount;
-
-            InvoiceDTO invoiceDTO = new InvoiceDTO(costEntity.getDescription(), temp, costEntity.getFactor(), (flatPrice * costEntity.getFactor()));
-            invoice.add(invoiceDTO);
+            else {
+                currentCharges = roomEntity.getPrecio() * costEntity.getFactor() * daysToApplyDiscount;
+                invoice.invoiceRows.add(new InvoiceRowDTO(costEntity.getDescription(), daysToApplyDiscount, currentCharges));
+            }
+            additionalCharges+= currentCharges;
         }
-        totalPrice = eventPrice + sessonPrice;
-        double finalPrice = totalPrice - (totalPrice * totalDiscount);
-        System.out.println("Precio Total sin descuentos: " + totalPrice + " | Total Desc quantity: " + (totalPrice * totalDiscount) + " | Total Desc %: " +(totalDiscount * 100) + "% | Final Price: " + finalPrice);
+        invoice.additionalCharges = additionalCharges;
+        invoice.finalPrice = defaultFlatPrice + additionalCharges;
         return invoice;
     }
 

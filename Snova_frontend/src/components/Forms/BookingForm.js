@@ -23,7 +23,7 @@ function BookingForm(props) {
     const [checkIn, setCheckIn] = React.useState(null);
     const [checkOut, setCheckOut] = React.useState(null);
     const history = useHistory()
-    
+
     React.useEffect(() => {
 
 
@@ -31,26 +31,26 @@ function BookingForm(props) {
 
     }, [props]);
 
-       
+
     function updateBookDates(checkIn, checkOut) {
-        
+
         setCheckIn(checkIn)
         setCheckOut(checkOut)
-    
-        
+
+
         props.detailDates(checkIn, checkOut)
-        
-        console.log("CheckIN en BOOKINGFORM:", checkIn )
-        console.log("CheckOUT en BOOKINGFORM:", checkOut ) 
-        console.log("CheckOUT en PROPS-BOOKINGFORM:", props )
-        console.log("CheckOUT en BUTTON STATUS:", props.buttonCheck )
+
+        console.log("CheckIN en BOOKINGFORM:", checkIn)
+        console.log("CheckOUT en BOOKINGFORM:", checkOut)
+        console.log("CheckOUT en PROPS-BOOKINGFORM:", props)
+        console.log("CheckOUT en BUTTON STATUS:", props.buttonCheck)
 
     }
 
     function SaveBooking(event) {
 
         event.preventDefault()
-        
+
         let bookingData = {
             'id_habitacion': props.habitacion.id,
             'cliente_id': props.client.id,
@@ -75,81 +75,29 @@ function BookingForm(props) {
                     {/* <h4 className="title"></h4> */}
 
                     <Row>
-                        <Col>
-                            <InputGroup
-                                className={
-                                    "input-lg" + (lastFocus ? " input-group-focus" : "")
-                                }
-                            >
-                                <InputGroupAddon addonType="prepend">
-                                    <InputGroupText>
-                                        <i className="now-ui-icons ui-1_email-85"></i>
-                                    </InputGroupText>
-                                </InputGroupAddon>
-                                <Input
-                                    placeholder="Email..."
-                                    type="email"
-                                    onFocus={() => setLastFocus(true)}
-                                    onBlur={() => setLastFocus(false)}
-                                ></Input>
-                            </InputGroup>
-                            <InputGroup
-                                className={
-                                    "input-lg" + (firstFocus ? " input-group-focus" : "")
-                                }
-                            >
-                                <InputGroupAddon addonType="prepend">
-                                    <InputGroupText>
-                                        <i className="now-ui-icons users_circle-08"></i>
-                                    </InputGroupText>
-                                </InputGroupAddon>
-                                <Input
-                                    placeholder="First Name..."
-                                    type="text"
-                                    onFocus={() => setFirstFocus(true)}
-                                    onBlur={() => setFirstFocus(false)}
-                                ></Input>
-                            </InputGroup>
-                            <InputGroup
-                                className={
-                                    "input-lg" + (lastFocus ? " input-group-focus" : "")
-                                }
-                            >
-                                <InputGroupAddon addonType="prepend">
-                                    <InputGroupText>
-                                        <i className="now-ui-icons ui-1_email-85"></i>
-                                    </InputGroupText>
-                                </InputGroupAddon>
-                                <Input
-                                    placeholder="Email..."
-                                    type="select"
-                                    onFocus={() => setLastFocus(true)}
-                                    onBlur={() => setLastFocus(false)}
-                                ></Input>
-                            </InputGroup>
+                        <div className="pt-4 pl-3 pb-2">
+                            <p className="font-weight-bold">Select your preferences</p>
+                        </div>
+                        <Col sm={12}>
+                            <MyDatePicker onChange2={updateBookDates.bind(this)} excludedDates={props.excludedDates} />
                         </Col>
-
-                        <MyDatePicker onChange2={updateBookDates.bind(this)} excludedDates={props.excludedDates} />
-
                     </Row>
-
-                    <div className="send-button">
-                        
+                    <Row>
                         <Button
                             block
-                            className="btn-round"
+                            className="btn-round "
                             color="info"
                             href="#pablo"
                             onClick={SaveBooking}
                             size="lg"
-                            disabled= {!props.buttonCheck}
-                            
+                            disabled={!props.buttonCheck}
+
                         >
                             Save Booking
                   </Button>
-                    </div>
+                  </Row>
 
-                   
+
 
 
                 </Container>
@@ -166,6 +114,6 @@ function BookingForm(props) {
 const mapStateToProps = state => ({
     client: state.clientModel.client,
     buttonCheck: state.buttonCheck.status_button
-  })
-  
+})
+
 export default connect(mapStateToProps)(BookingForm)

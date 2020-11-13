@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import { QRCode } from "react-qr-svg";
 import FlatService from 'services/FlatService.js';
 import BookingForm from 'components/Forms/BookingForm'
-import LogUser from 'components/Forms/LoginForm'
+import DefaultFooter from "components/Footers/DefaultFooter.js";
+import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import BookingService from "services/BookingService.js"
+import { Row, Col } from "reactstrap";
 
 
 class FlatDetailView extends Component {
@@ -23,7 +25,7 @@ class FlatDetailView extends Component {
         console.log("HHHHHHHHHH", props)
     }
 
-        componentDidMount() {
+    componentDidMount() {
         console.log("PROPS REDUX", this.props)
         FlatService.getFlatById(this.state.id).then((res) => {
             this.setState({ room_details: res.data.roomModel, dates: res.data.dates });
@@ -41,8 +43,8 @@ class FlatDetailView extends Component {
             'preCheckIn': checkI,
             'preCheckOut': checkO,
             'precio': this.state.room_details.precio
-          }
-        BookingService.getPrice(costData).then(res => this.setState({booking_price : res}))
+        }
+        BookingService.getPrice(costData).then(res => this.setState({ booking_price: res }))
         console.log("CheckIN en DETAILVIEW:", this.checkIn)
         console.log("CheckOUT en DETAILVIEW:", this.checkOut)
 
@@ -55,71 +57,54 @@ class FlatDetailView extends Component {
         return (
 
 
+            <>
+                <IndexNavbar />
+                <section className="DefaultView">
+                    <div class="container">
+                        <Row class="justify-content-center">
+                            <h1>Do You Want This House...</h1>
+                        </Row>
+                        <Row>
+                            <Col md={8}>
+                                <div className="single-rooms-area">
+                                    <div className="bg-thumbnail bg-img img-raised"
+                                        style={{ backgroundImage: "url(" + require("assets/img/house_type_4.png") + ")" }}>
 
-            <div id="principal" className="p">
-                <div className="row ">
-                    <div className="section-heading text-center">
+                                    </div>
+                                    {/* <!-- Price  --> */}
+                                    <p className="price-from">From {this.state.room_details.precio}  €/noche</p>
 
-                        <h2>Do You Want This House...  {this.state.booking_price===0 ? "" : "Book Now for " + this.state.booking_price + "€"} </h2>
-                        {/* <p>{this.state.checkIn2}</p>
-                        <p>{this.state.checkOut2}</p> */}
-
-
-
-                    </div>
-                    <div id="apartamento" className="col-md-10" style={{ border: "solid" }}>
-
-                        {/* <!-- Thumbnail --> */}
-
-                        <div className="single-rooms-area">
-                            <div className="bg-thumbnail bg-img img-raised"
-                                style={{ backgroundImage: "url(" + require("assets/img/house_type_4.png") + ")" }}>
-
-                            </div>
-                            {/* <!-- Price  --> */}
-                            <p className="price-from">From {this.state.room_details.precio}  €/noche</p>
-
-                            {/* <!-- Rooms Text --> */}
-                            {/* <div className="rooms-text">
+                                    {/* <!-- Rooms Text --> */}
+                                    {/* <div className="rooms-text">
 
                                     <div className="line"></div>
                                   
                                 </div> */}
-                            {/* <!-- Book Room --> */}
-                            <p><Link className="btn book-room-btn btn-palatin" to={"/"}>select</Link></p>
-                        </div>
+                                    {/* <!-- Book Room --> */}
+                                    <p><Link className="btn book-room-btn btn-palatin" to={"/"}>select</Link></p>
+                                </div>
+                                <div id="footer" className="row" style={{ border: "solid" }}>
+
+                                    <h3>{this.state.room_details.codigo}</h3>
+                                    <h3>{this.state.room_details.localidad}</h3>
+                                    <p>{this.state.room_details.descripcion}</p>
+
+                                    <div>
+                                    </div>
+                                </div>
+                            </Col>
+                            <Col md={4}>
+                                <BookingForm
+                                    detailDates={this.updateDetailDates.bind(this)}
+                                    habitacion={this.state.room_details}
+                                    id={this.state.room_details.id}
+                                    excludedDates={this.state.dates} />
+                            </Col>
+                        </Row>
                     </div>
-
-                    <div id="formulario" className="col-md-2 customDatePickerWidth" style={{ border: "solid", backgroundColor: "#f87f1c" }}>
-                    <QRCode
-                        bgColor="#FFFFFF"
-                        fgColor="#000000"
-                        level="Q"
-                        style={{ width: 128 }}
-                        value={this.state.room_details.description}
-                    />
-
-                        <BookingForm 
-                            detailDates={this.updateDetailDates.bind(this)}
-                            habitacion={this.state.room_details}
-                            id={this.state.room_details.id}
-                            excludedDates={this.state.dates} />
-
-                    </div>
-
-
-                </div>
-                <div id="footer" className="row" style={{ border: "solid" }}>
-                    <LogUser />
-                    <h3>{this.state.room_details.codigo}</h3>
-                    <h3>{this.state.room_details.localidad}</h3>
-                    <p>{this.state.room_details.descripcion}</p>
-
-                    <div>
-                    </div>
-                </div>
-            </div>
-
+                </section>
+                <DefaultFooter />
+            </>
 
 
 
