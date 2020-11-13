@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { logIn, logOut, client } from 'redux/actions.js';
+import { logIn, logOut, client, status_button } from 'redux/actions.js';
 import LoginService from 'services/LoginService'
 
 // reactstrap components
@@ -23,7 +23,8 @@ export class LogUser extends React.Component {
 
     super(props);
     this.state = {
-      client : []
+      client : [],
+      status_button : false,
   }
 
     this.userEmail = React.createRef();
@@ -42,18 +43,18 @@ export class LogUser extends React.Component {
     let loginData = {"email": mail}
     
     const logged = await LoginService.loginCheck(loginData)  // ejecuto query para validar email y recoger objeto cliente
-    //console.log("Objeto leido del SEssionStorage",logged)
+ 
 
-  
     if ((logged.email !== null)){
-    this.props.log.validUser = true 
+    this.props.status_button({status_button : true})
+    
     this.props.client({ client : logged }); //guarda objeto en redux
     console.log('EMAIL CORRECTO', this.props.client)
     this.props.logIn({ title : mail })
     }else{
       // this.props.logIn({ title: 'this mail not exits' })
       console.log('EMAIL INCORRECTO', this.props.log.usuario)  
-      this.props.log.validUser = false
+      this.props.status_button({status_button : false})
       this.props.log.usuario = {};
       this.props.logIn({ title: 'Email not Found' })
 
@@ -70,7 +71,7 @@ export class LogUser extends React.Component {
     console.log(this.userEmail.current.value);
     this.props.logOut({ title: '' })
     
-    this.props.log.validUser = false;
+    this.props.status_button({status_button : false});
 
   }
 
@@ -103,7 +104,8 @@ export class LogUser extends React.Component {
 
 const mapStateToProps = state => ({
   log: state.log,
-  clientModel: state.clientModel
+  clientModel: state.clientModel,
+  buttonCheck: state.buttonCheck,
   
 });
 
@@ -111,6 +113,9 @@ const mapDispatchToProps = {
   logIn,
   logOut,
   client,
+  status_button,
+  
+  
   
 };
 

@@ -4,18 +4,8 @@ import { QRCode } from "react-qr-svg";
 import FlatService from 'services/FlatService.js';
 import BookingForm from 'components/Forms/BookingForm'
 import LogUser from 'components/Forms/LoginForm'
+import BookingService from "services/BookingService.js"
 
-
-import {
-    Button,
-    Input,
-    InputGroupAddon,
-    InputGroupText,
-    InputGroup,
-    Container,
-    Row,
-    Col,
-} from "reactstrap";
 
 class FlatDetailView extends Component {
     constructor(props) {
@@ -23,8 +13,9 @@ class FlatDetailView extends Component {
 
         this.state = {
             id: this.props.match.params.id,
-            test: this.updateDetailDates(),
-            price: 0,
+            checkIn: new Date(),
+            checkOut: new Date(),
+            booking_price: 0,
             dates: [],
             room_details: {}
         }
@@ -32,27 +23,26 @@ class FlatDetailView extends Component {
         console.log("HHHHHHHHHH", props)
     }
 
-    async componentDidMount() {
+        componentDidMount() {
         console.log("PROPS REDUX", this.props)
         FlatService.getFlatById(this.state.id).then((res) => {
             this.setState({ room_details: res.data.roomModel, dates: res.data.dates });
-
-            //console.log('details: ', this.state.details);
-            //console.log('tipos: ', this.state.details.tipoModel.id);
         });
 
     }
 
-    updateBookPrice(value) {
 
-        this.setState({ price: value })
-    }
 
     updateDetailDates(checkI, checkO) { //recibe checkIn checkOut de bookForm
 
         this.setState({ checkIn: checkI })
         this.setState({ checkOut: checkO })
-
+        let costData = {
+            'preCheckIn': checkI,
+            'preCheckOut': checkO,
+            'precio': this.state.room_details.precio
+          }
+        BookingService.getPrice(costData).then(res => this.setState({booking_price : res}))
         console.log("CheckIN en DETAILVIEW:", this.checkIn)
         console.log("CheckOUT en DETAILVIEW:", this.checkOut)
 
@@ -70,7 +60,7 @@ class FlatDetailView extends Component {
                 <div className="row ">
                     <div className="section-heading text-center">
 
-                        <h2>Do You Want This House... Book Now! {this.state.price}</h2>
+                        <h2>Do You Want This House...  {this.state.booking_price===0 ? "" : "Book Now for " + this.state.booking_price + "€"} </h2>
                         {/* <p>{this.state.checkIn2}</p>
                         <p>{this.state.checkOut2}</p> */}
 
@@ -106,10 +96,10 @@ class FlatDetailView extends Component {
                         fgColor="#000000"
                         level="Q"
                         style={{ width: 128 }}
-                        value={this.state.room_details.descripcion}
+                        value={this.state.room_details.description}
                     />
 
-                        <BookingForm priceFunc={this.updateBookPrice.bind(this)}
+                        <BookingForm 
                             detailDates={this.updateDetailDates.bind(this)}
                             habitacion={this.state.room_details}
                             id={this.state.room_details.id}

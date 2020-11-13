@@ -3,47 +3,47 @@ package com.snovarent.app.application.models;
 
 import java.sql.Date;
 
-public class DiscountModel {
+public class CostModel {
 
 
         private long id;
         private Date starDate;
         private Date endDate;
         private String description;
-        private Integer nBookings;
-        private Integer nPax;
+        private Integer nbookings;
+        private Integer npax;
         private Integer action;
         private Integer days;
-        private Double factor;
+        private float factor;
 
 
 
-        public DiscountModel(long id, Date starDate, Date endDate, String description, Integer nBookings, Integer nPax, Integer action, Integer days, Double factor) {
+        public CostModel(long id, Date starDate, Date endDate, String description, Integer nbookings, Integer npax, Integer action, Integer days, float factor) {
             setId (id);
             setStarDate (starDate);
             setEndDate (endDate);
             setDescription (description);
-            setnBookings (nBookings);
-            setnPax (nPax);
+            setNbookings (nbookings);
+            setNpax (npax);
             setAction (action);
             setDays (days);
             setFactor (factor);
         }
 
 
-        public DiscountModel(Date starDate, Date endDate, String description, Integer nBookings, Integer nPax, Integer action, Integer days, Double factor) {
+        public CostModel(Date starDate, Date endDate, String description, Integer nbookings, Integer npax, Integer action, Integer days, float factor) {
 
             setStarDate (starDate);
             setEndDate (endDate);
             setDescription (description);
-            setnBookings (nBookings);
-            setnPax (nPax);
+            setNbookings (nbookings);
+            setNpax (npax);
             setAction (action);
             setDays (days);
             setFactor (factor);
         }
 
-        public DiscountModel() {
+        public CostModel() {
         }
 
     public long getId() {
@@ -79,19 +79,19 @@ public class DiscountModel {
     }
 
     public Integer getnBookings() {
-        return nBookings;
+        return nbookings;
     }
 
-    public void setnBookings(Integer nBookings) {
-        this.nBookings = nBookings;
+    public void setNbookings(Integer nBookings) {
+        this.nbookings = nbookings;
     }
 
-    public Integer getnPax() {
-        return nPax;
+    public Integer getNpax() {
+        return npax;
     }
 
-    public void setnPax(Integer nPax) {
-        this.nPax = nPax;
+    public void setNpax(Integer npax) {
+        this.npax = npax;
     }
 
     public Integer getAction() {
@@ -110,27 +110,28 @@ public class DiscountModel {
         this.days = days;
     }
 
-    public Double getFactor() {
+    public float getFactor() {
         return factor;
+    }
+
+
+
+    public void setFactor(float factor) {
+        this.factor = factor;
     }
 
     @Override
     public String toString() {
-        return "DiscountModel{" +
-                "id=" + id +
-                ", starDate=" + starDate +
+        return "CostModel{" +
+                "starDate=" + starDate +
                 ", endDate=" + endDate +
                 ", description='" + description + '\'' +
-                ", nBookings=" + nBookings +
-                ", nPax=" + nPax +
+                ", nbookings=" + nbookings +
+                ", npax=" + npax +
                 ", action=" + action +
                 ", days=" + days +
                 ", factor=" + factor +
                 '}';
-    }
-
-    public void setFactor(Double factor) {
-        this.factor = factor;
     }
 }
 

@@ -16,29 +16,13 @@ import {
 } from "reactstrap";
 
 
-
-
-// const bookingData = {
-//     'roomId' : this.state.roomId,
-//     'checkIn' : this.state.checkin.toJSON().split(“T”)[0],
-//     'checkOut' : this.state.checkout.toJSON().split(“T”)[0],
-//     'guests' : this.state.guests,
-//     'breakfastService': this.state.showBreakfast,
-//     'carParkingService': this.state.showCarParking,
-//     'spaService': this.state.showSpaService,
-//     'laundryService': this.state.showLaundryService,
-//     'shuttleService': this.state.showShuttleService,
-//     'codeDiscount' : this.state.discountCode,
-//     'totalPrice' : '0',
-// }
 function BookingForm(props) {
     const [firstFocus, setFirstFocus] = React.useState(false);
     const [lastFocus, setLastFocus] = React.useState(false);
     const [checkIn, setCheckIn] = React.useState(null);
     const [checkOut, setCheckOut] = React.useState(null);
-    const [priceB, setPriceB] = React.useState(null);
-
-
+    const [flag, setFlag] = React.useState(false);
+    
 
     React.useEffect(() => {
 
@@ -47,27 +31,7 @@ function BookingForm(props) {
 
     }, [props]);
 
-
-    function calculatePrice() {
-        
-        let costData = {
-            'preCheckIn': checkIn,
-            'preCheckOut': checkOut,
-            'precio': props.habitacion.precio
-          }
-        BookingService.getPrice(costData).then(res => setPriceB(res))
-        
-        props.priceFunc(priceB)
-        console.log("Precio en BOOKINGFORM:" , priceB)  
-        console.log("CheckIN en BOOKINGFORM:", checkIn )
-        console.log("CheckOUT en BOOKINGFORM:", checkOut )
-        
-
-      
-        
-    }
-
-
+       
     function updateBookDates(checkIn, checkOut) {
         
         setCheckIn(checkIn)
@@ -79,9 +43,8 @@ function BookingForm(props) {
         console.log("CheckIN en BOOKINGFORM:", checkIn )
         console.log("CheckOUT en BOOKINGFORM:", checkOut ) 
         console.log("CheckOUT en PROPS-BOOKINGFORM:", props )
-        
-    }
 
+    }
 
     function SaveBooking(event) {
         console.log(event)
@@ -100,7 +63,9 @@ function BookingForm(props) {
         console.log("Saved Booking Data", bookingData)
     }
 
-
+        function sendUserLoggedState(flag){
+        setFlag(flag)
+        }
 
     return (
         <React.Fragment>
@@ -169,6 +134,7 @@ function BookingForm(props) {
                     </Row>
 
                     <div className="send-button">
+                        
                         <Button
                             block
                             className="btn-round"
@@ -176,24 +142,14 @@ function BookingForm(props) {
                             href="#pablo"
                             onClick={SaveBooking}
                             size="lg"
+                            disabled= {props.buttonCheck.status_button}
                             
                         >
                             Save Booking
                   </Button>
                     </div>
 
-                    <div className="send-button">
-                        <Button
-                            block
-                            className="btn-round"
-                            color="info"
-                            href="#pablo"
-                            onClick={calculatePrice}
-                            size="lg"
-                        >
-                            calculate
-                  </Button>
-                    </div>
+                   
 
 
                 </Container>
@@ -208,7 +164,8 @@ function BookingForm(props) {
 
 }
 const mapStateToProps = state => ({
-    client: state.clientModel.client
+    client: state.clientModel.client,
+    buttonCheck: state.buttonCheck.status_button
   })
   
 export default connect(mapStateToProps)(BookingForm)

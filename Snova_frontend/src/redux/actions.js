@@ -8,19 +8,13 @@
     type: 'LOG_OUT',
   });
 
+  export const status_button = buttonCheck => ({
+    type: 'LOG_CHECK',
+    buttonCheck,
+  });
+
   export const client = clientModel => ({
     type: 'USER_NAME',
     clientModel,
   });
 
-
-
-
-
-
-  // export const storeUserModel = userData => ({
-    
-  //     type: 'USER_MODEL',
-  //     payload: userData,
-    
-  // });

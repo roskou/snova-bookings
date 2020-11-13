@@ -1,6 +1,4 @@
 import { combineReducers } from 'redux';
-import { USER_MODEL } from 'redux/actions.js'
-
 
 
 export const log = (state = {}, action) => {
@@ -12,11 +10,7 @@ export const log = (state = {}, action) => {
       case 'LOG_OUT':
         return {};
 
-          
-      case 'USER_NAME':
-        return action.clientModel;
-    
-        
+       
       default:
         return state;
     }
@@ -34,7 +28,19 @@ export const log = (state = {}, action) => {
         return state;
     }
   };
+
+  export const buttonCheck = (state = {}, action) => {
+    switch (action.type) {
+
+      case 'LOG_CHECK':
+        return action.buttonCheck;
+    
+        
+      default:
+        return state;
+    }
+  };
   
   export const reducers = combineReducers({
-    log, clientModel,
+    log, clientModel, buttonCheck,
   });
