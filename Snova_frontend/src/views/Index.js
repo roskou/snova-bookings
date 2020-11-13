@@ -1,31 +1,24 @@
 import React from "react";
-
 // reactstrap components
 // import {
 // } from "reactstrap";
-
 // core components
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import IndexHeader from "components/Headers/IndexHeader.js";
 import DefaultFooter from "components/Footers/DefaultFooter.js";
-
 // sections for this page
 //import Images from "./index-sections/Images.js";
-
 // import Navbars from "./index-sections/Navbars.js";
 // import Tabs from "./index-sections/Tabs.js";
 // import Pagination from "./index-sections/Pagination.js";
 // import Notifications from "./index-sections/Notifications.js";
 // import Typography from "./index-sections/Typography.js";
 // import Javascript from "./index-sections/Javascript.js";
-
 // import NucleoIcons from "./index-sections/NucleoIcons.js";
 // import CompleteExamples from "./index-sections/CompleteExamples.js";
 // import SignUp from "./index-sections/SignUp.js";
 // import Examples from "./index-sections/Examples.js";
 // import Download from "./index-sections/Download.js";
-
-
 import BasicSlider from '../components/Hero/BasicSlider/BasicSlider'
 //import VerticalSlider from '../components/Hero/VerticalSlider/VerticalSlider'
 //import ZoomSlider from '../components/Hero/ZoomSlider/ZoomSlider'
@@ -36,8 +29,6 @@ import BasicSlider from '../components/Hero/BasicSlider/BasicSlider'
 //import AutoplayButtonSlider from '../components/Hero/AutoplayButtonSlider/AutoplayButtonSlider'
 import LogUser from 'components/Forms/LoginForm.js'
 import FlatType from '../components/Flats/FlatType.js'
-
-
 function Index() {
   React.useEffect(() => {
     document.body.classList.add("index-page");
@@ -52,17 +43,14 @@ function Index() {
   });
   return (
     <>
-      <IndexNavbar />
+      <IndexNavbar transparent="navbar-transparent"/>
       <div className="wrapper">
         <BasicSlider
          />
          <br></br>
-
-        
         <div className="main">
         <FlatType />
         <LogUser />
-
         </div>
         <IndexHeader />
         <DefaultFooter />
@@ -70,5 +58,4 @@ function Index() {
     </>
   );
 }
-
 export default Index;
