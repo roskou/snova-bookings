@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import Particles from 'react-particles-js';
+import "assets/css/room.css"
 
 class ThankYouPage extends Component {
     constructor(props) {
@@ -47,7 +48,7 @@ class ThankYouPage extends Component {
                         }
                     }} />
                     </div>
-                    <div class="container">
+                    <div class="container thanks">
                         <div class="content-center brand">
 
                             <h1 class="h1-seo">Now UI Kit.</h1>
