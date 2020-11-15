@@ -14,16 +14,11 @@ function DefaultFooter() {
           <nav>
             <ul>
               <li>
-                <a
-                  href="https://www.creative-tim.com?ref=nukr-default-footer"
-                  target="_blank"
-                >
-                  Creative Tim
-                </a>
+
               </li>
               <li>
                 <a
-                  href="http://presentation.creative-tim.com?ref=nukr-default-footer"
+                  href=""
                   target="_blank"
                 >
                   About Us
@@ -31,7 +26,7 @@ function DefaultFooter() {
               </li>
               <li>
                 <a
-                  href="http://blog.creative-tim.com?ref=nukr-default-footer"
+                  href=""
                   target="_blank"
                 >
                   Blog
@@ -45,14 +40,14 @@ function DefaultFooter() {
               href="https://www.invisionapp.com?ref=nukr-default-footer"
               target="_blank"
             >
-              Invision
+              Taribo
             </a>
             . Coded by{" "}
             <a
               href="https://www.creative-tim.com?ref=nukr-default-footer"
               target="_blank"
             >
-              Creative Tim
+              Oscar Lara de Liz
             </a>
             .
           </div>
