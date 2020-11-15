@@ -14,7 +14,6 @@ public interface CostService {
     String cuponGenerator();
 //    float calculateCost(CostDTO costData);
     List<CostModel> showAllDiscounts();
-//    List<CostModel> test(CostDTO costData);
     long getDaysToApplyOffer(Date checkIn, Date checkOut, Date startOffer, Date endOffer);
     InvoiceDTO getInvoice(CostDTO costData);
 

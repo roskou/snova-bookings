@@ -1,12 +1,9 @@
 package com.snovarent.app.application.services;
 
-import com.snovarent.app.application.models.BookingModel;
-
-import java.util.List;
+import com.snovarent.app.application.domain.DTO.BookingDTO;
 
 public interface BookingService {
 
     void deleteBooking(long id);
-    void saveBooking(BookingModel bookingModel);
-    List<BookingModel> showBookings();
+    String saveBooking(BookingDTO dto);
 }

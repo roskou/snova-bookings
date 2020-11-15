@@ -1,16 +1,16 @@
 package com.snovarent.app.application.services;
 
 
+import com.snovarent.app.application.domain.DTO.BookingDTO;
+import com.snovarent.app.application.domain.DTO.CostDTO;
 import com.snovarent.app.application.domain.entities.BookingEntity;
-import com.snovarent.app.application.factories.BookingFactory;
+import com.snovarent.app.application.domain.entities.ClientEntity;
+import com.snovarent.app.application.domain.entities.RoomEntity;
 import com.snovarent.app.application.domain.repositories.BookingRepository;
-import com.snovarent.app.application.models.BookingModel;
+import com.snovarent.app.application.domain.repositories.ClientRepository;
+import com.snovarent.app.application.domain.repositories.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-
-
 
 @Service
 public class BookingServiceImplementation implements BookingService {
@@ -18,22 +18,18 @@ public class BookingServiceImplementation implements BookingService {
     //--- Repositories & Factories needed ------------------------------
 
     BookingRepository repository;
-    BookingFactory factory;
-
+    RoomRepository roomRepository;
+    ClientRepository clientRepository;
+    CostService costService;
 
 
     //--- Constructor --------------------------------------------------
     @Autowired
-    public BookingServiceImplementation(BookingRepository repository, BookingFactory factory) {
+    public BookingServiceImplementation(BookingRepository repository, RoomRepository roomRepository, ClientRepository clientRepository,  CostService costService) {
         this.repository = repository;
-        this.factory = factory;
-    }
-
-    @Override
-    public List<BookingModel> showBookings() {
-        List<BookingEntity> entities = repository.findAll();
-        List<BookingModel> models = factory.reservaListEntity2Model(entities);
-        return models;
+        this.roomRepository = roomRepository;
+        this.clientRepository = clientRepository;
+        this.costService = costService;
     }
 
     @Override
@@ -43,9 +39,22 @@ public class BookingServiceImplementation implements BookingService {
 
 
     @Override
-    public void saveBooking(BookingModel model) {
-        repository.save(factory.reservaModel2Entity(model));
-        return;
+    public String saveBooking(BookingDTO dto) {
+        RoomEntity roomEntity = roomRepository.findById(dto.getId_habitacion());
+        ClientEntity clientEntity = clientRepository.findById(dto.cliente_id);
+
+        CostDTO dtoCost = new CostDTO(dto.fechaIn, dto.fechaOut, dto.cliente_id, dto.id_habitacion);
+        double finalPrice = costService.getInvoice(dtoCost).finalPrice;
+
+        BookingEntity bookingEntity = new BookingEntity();
+        bookingEntity.setFechaIn(dto.fechaIn);
+        bookingEntity.setFechaOut(dto.fechaOut);
+        bookingEntity.setClienteEntity_id(clientEntity);
+        bookingEntity.setHabitacionEntity_id(roomEntity);
+        bookingEntity.setPrecioTotal(finalPrice);
+
+        repository.save(bookingEntity);
+        return "OK";
     }
 
 }

@@ -4,7 +4,6 @@ package com.snovarent.app.ui.controllers;
 import com.snovarent.app.application.domain.DTO.BookingDTO;
 import com.snovarent.app.application.domain.DTO.LoginDTO;
 import com.snovarent.app.application.domain.DTO.ViewRoomDetailDTO;
-import com.snovarent.app.application.models.BookingModel;
 import com.snovarent.app.application.models.ClientModel;
 import com.snovarent.app.application.models.RoomModel;
 import com.snovarent.app.application.models.RoomTypeModel;
@@ -59,9 +58,6 @@ public class RestAPIController {
 
     //Bookings Mappings-------------------------------------------------------------------
 
-    @GetMapping("/bookingnow")
-    List<BookingModel> showBookings() { return bookingService.showBookings();
-    }
 
     @GetMapping("/date/{id}")
     List<Date> bookingDatesGenerator(@PathVariable("id") long id){ return dateService.bookingDatesGeneratorByID(id);};
@@ -72,20 +68,9 @@ public class RestAPIController {
     }
 
     @PostMapping("/bookingnow")
-    public void saveBooking(@RequestBody BookingDTO newBooking) {
-        System.out.println(newBooking.toString());//TODO Pasar al service
-        RoomModel roomModel = roomService.showRoomByID(newBooking.getId_habitacion());
-        System.out.println("\n *** ROOM MODEL ***" + roomModel.toString());
-        ClientModel clientModel = clientService.showClientByID(newBooking.getCliente_id());
-        System.out.println("\n *** CLIENTE MODEL *** " + clientModel.toString());
-        BookingModel bookingModel = new BookingModel(newBooking.getFechaIn(), newBooking.getFechaOut(), newBooking.getPrecioTotal(), clientModel, roomModel );
-        System.out.println("\n *** RESERVA MODEL *** " + bookingModel.toString());
+    public String saveBooking(@RequestBody BookingDTO newBooking) {
+        return bookingService.saveBooking(newBooking);
     }
-    //Cost Mappings--------------------------------------------------------------------
-
-
-
-
 
     //Login Mappings-------------------------------------------------------------------
     @PostMapping("/login")

@@ -40,10 +40,6 @@ public class DateServiceImplementation implements DateService {
         return Date.valueOf( LocalDate.parse(date, formatoDeEntrada).format(formatoDeSalida) );
     }
 
-//    @Override
-//    public long getDaysBetweenTwoDates(Date date1, Date date2) {
-//        return TimeUnit.DAYS.convert((date2.getTime() - date1.getTime()), TimeUnit.MILLISECONDS);
-//    }
 
     @Override
     public List<Date> bookingDatesGeneratorByID(long id) {
@@ -60,9 +56,9 @@ public class DateServiceImplementation implements DateService {
                 start = new Date(start.getTime() + TimeUnit.DAYS.toMillis( 1 ));
             }
             for (int x = 0; x < dateRange.size(); x++) {
-                System.out.println("Fechas: " + dateRange.get(x));
+
             }
-            System.out.println("---------------------------------");
+
         }
 
         return generatedDates;

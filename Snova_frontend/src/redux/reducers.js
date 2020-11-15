@@ -40,7 +40,18 @@ export const log = (state = {}, action) => {
         return state;
     }
   };
+
+  export const invoice = (state = {}, action) => {
+    switch (action.type) {
+
+      case 'INVOICE_DATA':
+        return action.invoice;
+            
+      default:
+        return state;
+    }
+  };
   
   export const reducers = combineReducers({
-    log, clientModel, buttonCheck,
+    log, clientModel, buttonCheck, invoice,
   });

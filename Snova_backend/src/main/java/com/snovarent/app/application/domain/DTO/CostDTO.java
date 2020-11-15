@@ -3,19 +3,18 @@ package com.snovarent.app.application.domain.DTO;
 import com.sun.istack.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import java.time.LocalDate;
-import java.util.Objects;
+import java.sql.Date;
 
 
 public class CostDTO {
 
     @NotNull
     @NotEmpty
-    public LocalDate preCheckIn;
+    public Date preCheckIn;
 
     @NotNull
     @NotEmpty
-    public LocalDate preCheckOut;
+    public Date preCheckOut;
 
     @NotNull
     @NotEmpty
@@ -25,40 +24,44 @@ public class CostDTO {
     @NotEmpty
     public long idRoom;
 
-    @NotNull
-    @NotEmpty
-    public long npax;
+    public CostDTO(){}
 
-    //Getters -------------------------------------------
+    public CostDTO(Date preCheckIn, Date preCheckOut, long client, long idRoom) {
+        this.preCheckIn = preCheckIn;
+        this.preCheckOut = preCheckOut;
+        this.client = client;
+        this.idRoom = idRoom;
+    }
 
-    public LocalDate getPreCheckIn() {
+    public Date getPreCheckIn() {
         return preCheckIn;
     }
 
-    public LocalDate getPreCheckOut() {
+    public void setPreCheckIn(Date preCheckIn) {
+        this.preCheckIn = preCheckIn;
+    }
+
+    public Date getPreCheckOut() {
         return preCheckOut;
     }
 
-    public long getClient() { return client; }
+    public void setPreCheckOut(Date preCheckOut) {
+        this.preCheckOut = preCheckOut;
+    }
+
+    public long getClient() {
+        return client;
+    }
+
+    public void setClient(long client) {
+        this.client = client;
+    }
 
     public long getIdRoom() {
         return idRoom;
     }
 
-    public long getNpax() { return npax; }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CostDTO costDTO = (CostDTO) o;
-        return idRoom == costDTO.idRoom &&
-                Objects.equals(preCheckIn, costDTO.preCheckIn) &&
-                Objects.equals(preCheckOut, costDTO.preCheckOut);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(preCheckIn, preCheckOut, idRoom);
+    public void setIdRoom(long idRoom) {
+        this.idRoom = idRoom;
     }
 }

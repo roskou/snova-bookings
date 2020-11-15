@@ -49,13 +49,19 @@ public class CostServiceImplementation implements CostService {
     @Override
     public InvoiceDTO getInvoice(CostDTO costData) {
     //Entities
-        List<CostEntity> costEntities = costRepository.test(Date.valueOf(costData.getPreCheckIn()), Date.valueOf(costData.getPreCheckOut()));
+        List<CostEntity> costEntities = costRepository.test(costData.preCheckIn, costData.preCheckOut);
         RoomEntity roomEntity = roomRepository.findById(costData.idRoom);
-        long clientBookings = bookingRepository.countByCliente_Id(costData.getClient());
         int pax = roomEntity.getNumpersonas();
 
-        Date start = Date.valueOf(costData.getPreCheckIn());
-        Date end = Date.valueOf(costData.getPreCheckOut());
+        long clientBookings;
+        if (costData.getClient() == 0){
+            clientBookings = 0;
+        } else{
+            clientBookings = bookingRepository.countByCliente_Id(costData.getClient());
+        }
+
+        Date start = costData.preCheckIn;
+        Date end = costData.preCheckOut;
 
         long totalDays = getDaysBetweenTwoDates(start, end);
         double defaultFlatPrice = totalDays * roomEntity.getPrecio();
@@ -89,6 +95,7 @@ public class CostServiceImplementation implements CostService {
         }
         invoice.additionalCharges = additionalCharges;
         invoice.finalPrice = defaultFlatPrice + additionalCharges;
+        System.out.println(invoice.toString());
         return invoice;
     }
 
@@ -117,20 +124,6 @@ public class CostServiceImplementation implements CostService {
         return models;
 
     }
-//    @Override
-//    public float calculateCost(CostDTO costData) {
-//
-//        Date start = Date.valueOf(costData.getPreCheckIn());
-//        Date end = Date.valueOf(costData.getPreCheckOut());
-//
-//
-//        long nights = getDaysBetweenTwoDates(start, end);
-//        long totalPrice = nights * costData.getPrecio();
-//        System.out.println("night: " + nights + "Precio Hab: " + costData.getPrecio() + "fecha Entrada: " + start + "fecha Salida: " + end + "total: " + totalPrice);
-//        return totalPrice;
-//    }
-
-
 
     @Override
     public String cuponGenerator() {
@@ -148,12 +141,19 @@ public class CostServiceImplementation implements CostService {
         System.out.println(generatedString);
         return generatedString;
     }
-
 //    @Override
-//    public double calculateTotalPrice(Date checkIn, Date checkOut, double pricePerNight) {
-//        long nights = DateService.getDaysBetweenTwoDates(checkIn, checkOut);
-//        double totalPrice = nights * pricePerNight;
+//    public float calculateCost(CostDTO costData) {
+//
+//        Date start = Date.valueOf(costData.getPreCheckIn());
+//        Date end = Date.valueOf(costData.getPreCheckOut());
+//
+//
+//        long nights = getDaysBetweenTwoDates(start, end);
+//        long totalPrice = nights * costData.getPrecio();
+//        System.out.println("night: " + nights + "Precio Hab: " + costData.getPrecio() + "fecha Entrada: " + start + "fecha Salida: " + end + "total: " + totalPrice);
 //        return totalPrice;
 //    }
+
+
 
 }

@@ -2,61 +2,66 @@ import axios from 'axios';
 
 const RESERVA_API_BASE_URL = "http://localhost:8080/api";
 
-class BookingService{
+class BookingService {
 
-    async getBookins(){
-        return await axios.get( RESERVA_API_BASE_URL + '/bookingnow');
-    }
+  async getBookins() {
+    return await axios.get(RESERVA_API_BASE_URL + '/bookingnow');
+  }
 
-    
-    async getDatesBookingsByRoom(id){
-        return await axios.get( RESERVA_API_BASE_URL + '/date/' + id);
-    }
 
-    async saveBooking(bookingData){
-        let resp;
-        let config = {
-          method: 'post',
-          url: (RESERVA_API_BASE_URL + '/bookingnow'),
-          headers: { 
-            'Access-Control-Allow-Origin':'*',
-            'Content-Type': 'application/json', 
-          },
-          data : bookingData
-        };
-        await axios(config)
-          .then((response) => {
-              console.log("DATOS GUARDADOS OK")
-              resp = response.data
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-        return resp;
-}
+  async getDatesBookingsByRoom(id) {
+    return await axios.get(RESERVA_API_BASE_URL + '/date/' + id);
+  }
 
-async getPrice(costData){
-  let resp;
-  let config = {
-    method: 'post',
-    url: (RESERVA_API_BASE_URL + '/cost'),
-    headers: { 
-      'Access-Control-Allow-Origin':'*',
-      'Content-Type': 'application/json', 
-    },
-    data : costData
-  };
-  await axios(config)
-    .then((response) => {
-        console.log("CALCULO EN BACK 'OK'")
+  async saveBooking(bookingData) {
+    let resp;
+    let config = {
+      method: 'post',
+      url: (RESERVA_API_BASE_URL + '/bookingnow'),
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+      },
+      data: bookingData
+    };
+    await axios(config)
+      .then((response) => {
+        console.log("DATOS GUARDADOS OK")
         resp = response.data
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  return resp;
-}
-    
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    return resp;
+  }
+
+  async getPrice(costData) {
+
+    let resp;
+    let config = {
+      method: 'post',
+      url: (RESERVA_API_BASE_URL + '/invoice'),
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+      },
+      data: costData
+    };
+    await axios(config)
+      .then((response) => {
+
+        resp = response.data
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    return resp;
+  }
+
+  async getCupon() {
+    return await axios.get(RESERVA_API_BASE_URL + '/cupon');
+  }
+
 }
 
 export default new BookingService()

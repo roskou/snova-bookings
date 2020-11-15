@@ -16,7 +16,6 @@ public interface BookingRepository extends JpaRepository<BookingEntity, Long> {
 
  @Query(value = "select e.fechaIn, e.fechaOut  from BookingEntity e where  (e.fechaOut > current_date) AND (e.habitacion.id = :id)")
  List<Date[]> dateBookingsByRoom(@Param("id") long id);
-
  long countByCliente_Id(@Param("id") long id);
 
 }

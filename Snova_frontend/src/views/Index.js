@@ -20,11 +20,9 @@ function Index() {
     <>
       <IndexNavbar transparent="navbar-transparent" />
 
-        <BasicSlider />
-        <div className="content">
+      <BasicSlider />
+      <div className="content">
         <FlatType />
-
-
       </div>
       <DefaultFooter />
     </>

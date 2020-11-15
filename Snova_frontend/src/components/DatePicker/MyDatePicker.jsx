@@ -51,6 +51,7 @@ function MyDatePicker(props) {
         endDate={endDate}
         excludeDates={disabledDates}
         selectsRange
+        minDate= {new Date()}
         inline
         locale="es"
       />

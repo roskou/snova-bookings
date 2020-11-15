@@ -40,14 +40,6 @@ public class CostAPIController {
         return costService.cuponGenerator();
     }
 
-//    @GetMapping("/test")
-//    List<CostModel> test(@RequestBody CostDTO costData) {
-//        System.out.println("********* Cost DATA:" + costData.toString());
-//        List<CostModel> cost = costService.test(costData);
-//
-//        System.out.println("********* Ofertas en vigor:" + cost.toString());
-//        return cost;
-//    }
 
     @GetMapping("/discounts")
     List<CostModel> showAllDiscounts() { return costService.showAllDiscounts();

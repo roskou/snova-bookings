@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import FlatService from 'services/FlatService.js';
 // reactstrap components
-// reactstrap components
 import {
   // Button, 
   DropdownToggle,
@@ -18,13 +17,15 @@ import {
   Container,
   UncontrolledTooltip,
 } from "reactstrap";
+import SignUpModal from "components/SignUpModal";
 function IndexNavbar(props) {
   const [navbarColor, setNavbarColor] = React.useState(props.transparent);
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   const [experiences, setExperiences] = React.useState([]);
+  const [isOpen, setIsOpen] = React.useState(false);
+  
   React.useEffect(() => {
     FlatService.getFlatTypes().then((res) => {
-      console.log(res.data);
       setExperiences(res.data);
     });
     const updateNavbarColor = () => {
@@ -45,6 +46,8 @@ function IndexNavbar(props) {
       window.removeEventListener("scroll", updateNavbarColor);
     };
   }, []);
+
+  console.log("PEPE" + props)
   return (
     <>
       {collapseOpen ? (
@@ -64,7 +67,7 @@ function IndexNavbar(props) {
               target="_blank"
               id="navbar-brand"
             >
-              <img src={require('assets/img/logo_small.png')} alt="" />
+              <img src={require('assets/img/snova_logo.png')} alt="" />
             </NavbarBrand>
             <UncontrolledTooltip target="#navbar-brand">
               Designed by Taribo. Z coders Team
@@ -109,10 +112,7 @@ function IndexNavbar(props) {
                 {experiences.length > 0 && <DropdownMenu>
                   {experiences.map(e =>
                     <DropdownItem  to={"listByType/" + e.id} tag={Link}>
-                      {/* <i className="now-ui-icons location_world mr-1"></i> */}
-                      {/* <i className="now-ui-icons business_bank mr-1"></i>
-                      <i className="now-ui-icons objects_spaceship mr-1"></i>
-                      <i className="now-ui-icons objects_support-17 mr-1"></i> */}
+                      <i className="now-ui-icons objects_support-17 mr-1"></i>
                       {e.nombre}
                     </DropdownItem>
                   )}
@@ -122,14 +122,13 @@ function IndexNavbar(props) {
                 <NavLink
                   href="#pablo"
                   onClick={(e) => {
+                    setIsOpen(true);
                     e.preventDefault();
-                    document
-                      .getElementById("download-section")
-                      .scrollIntoView();
                   }}
                 >
-                  <i className="now-ui-icons users_circle-08"></i>
+                  <i className="now-ui-icons users_circle-08" ></i>
                   <p>Login</p>
+                  <SignUpModal isOpen={isOpen} setIsOpen={setIsOpen}/>
                 </NavLink>
               </NavItem>
             </Nav>
@@ -140,3 +139,5 @@ function IndexNavbar(props) {
   );
 }
 export default IndexNavbar;
+
+// style={{backgroundColor: this.props.log.title ? "green" : "red" }}

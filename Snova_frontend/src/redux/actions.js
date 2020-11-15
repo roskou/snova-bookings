@@ -13,6 +13,11 @@
     buttonCheck,
   });
 
+  export const booking_invoice = invoice => ({
+    type: 'INVOICE_DATA',
+    invoice,
+  });
+
   export const client = clientModel => ({
     type: 'USER_NAME',
     clientModel,

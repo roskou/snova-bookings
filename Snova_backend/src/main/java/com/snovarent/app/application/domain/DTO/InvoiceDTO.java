@@ -11,14 +11,12 @@ public class InvoiceDTO {
     @NotNull
     @NotEmpty
     public double finalPrice;
-
+    public double additionalCharges;
     public List<InvoiceRowDTO> invoiceRows;
 
-    public double additionalCharges;
-
     public InvoiceDTO() {
-        this.finalPrice = 0;
         this.invoiceRows = new ArrayList<>();
+        this.finalPrice = 0;
         this.additionalCharges = 0;
     }
 

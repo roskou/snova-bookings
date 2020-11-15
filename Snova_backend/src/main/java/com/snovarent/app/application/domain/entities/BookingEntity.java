@@ -11,7 +11,7 @@ public class BookingEntity implements Serializable {
     private long id;
     private java.sql.Date fechaIn;
     private java.sql.Date fechaOut;
-    private float precioTotal;
+    private double precioTotal;
 
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="cliente_id")
@@ -21,7 +21,7 @@ public class BookingEntity implements Serializable {
     @JoinColumn(name="id_habitacion")
     private RoomEntity habitacion;
 
-    public BookingEntity(long id, java.sql.Date fechaIn, java.sql.Date fechaOut, float precioTotal, ClientEntity clientEntity_id, RoomEntity habitacion) {
+    public BookingEntity(long id, java.sql.Date fechaIn, java.sql.Date fechaOut, double precioTotal, ClientEntity clientEntity_id, RoomEntity habitacion) {
         setId (id);
         setFechaIn (fechaIn);
         setFechaOut (fechaOut);
@@ -30,7 +30,7 @@ public class BookingEntity implements Serializable {
         setHabitacionEntity_id (habitacion);
     }
 
-    public BookingEntity(java.sql.Date fechaIn, java.sql.Date fechaOut, float precioTotal, ClientEntity clientEntity_id, RoomEntity roomEntity) {
+    public BookingEntity(java.sql.Date fechaIn, java.sql.Date fechaOut, double precioTotal, ClientEntity clientEntity_id, RoomEntity roomEntity) {
         setFechaIn (fechaIn);
         setFechaOut (fechaOut);
         setPrecioTotal (precioTotal);
@@ -65,11 +65,11 @@ public class BookingEntity implements Serializable {
         this.fechaOut = fechaOut;
     }
 
-    public float getPrecioTotal() {
+    public double getPrecioTotal() {
         return precioTotal;
     }
 
-    public void setPrecioTotal(float precioTotal) {
+    public void setPrecioTotal(double precioTotal) {
         this.precioTotal = precioTotal;
     }
 
