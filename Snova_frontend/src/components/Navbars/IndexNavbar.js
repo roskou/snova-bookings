@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import FlatService from 'services/FlatService.js';
+import { connect } from 'react-redux'
 // reactstrap components
 import {
   // Button, 
@@ -126,8 +127,8 @@ function IndexNavbar(props) {
                     e.preventDefault();
                   }}
                 >
-                  <i className="now-ui-icons users_circle-08" ></i>
-                  <p>Login</p>
+                  {props.buttonCheck ? <i className=  "now-ui-icons emoticons_satisfied" style={{backgroundColor: "green"}} ></i> : <i className=  "now-ui-icons users_circle-08" style={{backgroundColor: "red"}} ></i>}
+                    {props.buttonCheck ? <p>Logout</p> : <p>Login</p>}
                   <SignUpModal isOpen={isOpen} setIsOpen={setIsOpen}/>
                 </NavLink>
               </NavItem>
@@ -138,6 +139,13 @@ function IndexNavbar(props) {
     </>
   );
 }
-export default IndexNavbar;
+
+const mapStateToProps = state => ({
+
+  buttonCheck: state.buttonCheck.status_button,
+
+})
+
+export default connect(mapStateToProps)(IndexNavbar);
 
 // style={{backgroundColor: this.props.log.title ? "green" : "red" }}
