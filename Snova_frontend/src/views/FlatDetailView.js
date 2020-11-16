@@ -3,7 +3,7 @@ import FlatService from 'services/FlatService.js';
 import BookingForm from 'components/Forms/BookingForm'
 import DefaultFooter from "components/Footers/DefaultFooter.js";
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
-import { Row, Col, Card } from "reactstrap";
+import { Row, Col, Card, CardTitle, CardSubtitle, CardText } from "reactstrap";
 
 
 
@@ -49,9 +49,15 @@ class FlatDetailView extends Component {
                                 </div>
 
                                 <Row>
-                                    <Card className="detailFooter">
-                                        {this.state.room_details.codigo}{this.state.room_details.localidad}
-                                        <p>{this.state.room_details.descripcion}</p>
+                                    <Card className="detailFooter" className="text-center">
+                                    
+                                    <CardTitle tag="h5">  {this.state.room_details.codigo} ({this.state.room_details.localidad})</CardTitle>
+                                        
+                                    <CardSubtitle tag="h6"> PAX: {this.state.room_details.numpersonas}   |    Surface: {this.state.room_details.m2} m2</CardSubtitle>
+                                        
+                                    
+                                        <CardText>{this.state.room_details.descripcion}</CardText>
+                                        
 
                                     </Card>
                                 </Row>
@@ -59,11 +65,13 @@ class FlatDetailView extends Component {
                             </Col>
 
                             <Col md={4}>
+                            <Card body>
                                 <BookingForm
                                     idRoom={this.state.room_details.id}
                                     roomLocation={this.state.room_details.localidad}
                                     roomName={this.state.room_details.codigo}
                                     excludedDates={this.state.dates} />
+                            </Card>
                             </Col>
 
                         </Row>

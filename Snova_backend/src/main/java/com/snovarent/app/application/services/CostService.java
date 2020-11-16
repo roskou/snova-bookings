@@ -10,11 +10,11 @@ import java.util.List;
 public interface CostService {
 
 
-    long getDaysBetweenTwoDates(Date date1, Date date2);
+
     String cuponGenerator();
 //    float calculateCost(CostDTO costData);
     List<CostModel> showAllDiscounts();
-    long getDaysToApplyOffer(Date checkIn, Date checkOut, Date startOffer, Date endOffer);
+    long daysApplyCharges(Date checkIn, Date checkOut, Date startOffer, Date endOffer);
     InvoiceDTO getInvoice(CostDTO costData);
 
 

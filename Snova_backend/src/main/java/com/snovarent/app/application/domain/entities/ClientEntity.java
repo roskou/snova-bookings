@@ -18,7 +18,7 @@ public class ClientEntity implements Serializable {
     private Set<BookingEntity> reservas;
 
 
-    public ClientEntity(long id, String nombre, String apellido, String email) {
+    public ClientEntity(long id, String nombre, String apellido, String email, String cupon) {
         setId (id);
         setNombre (nombre);
         setApellido (apellido);
@@ -27,7 +27,7 @@ public class ClientEntity implements Serializable {
         setReservaEntities (reservas);
     }
 
-    public ClientEntity(String nombre, String apellido, String email) {
+    public ClientEntity(String nombre, String apellido, String email,String cupon) {
         setNombre (nombre);
         setApellido (apellido);
         setEmail (email);
@@ -38,8 +38,6 @@ public class ClientEntity implements Serializable {
     public ClientEntity() {
     }
 
-    public ClientEntity(long id, String nombre, String apellido, String email, String cupon) {
-    }
 
     public String getCupon() {
         return cupon;

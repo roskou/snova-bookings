@@ -7,7 +7,7 @@ public class ClientModel {
     private String email;
     private String cupon;
 
-    public ClientModel(String nombre, String apellido, String email,String cupon) {
+    public ClientModel(String nombre, String apellido, String email, String cupon) {
         setNombre (nombre);
         setApellido (apellido);
         setEmail (email);

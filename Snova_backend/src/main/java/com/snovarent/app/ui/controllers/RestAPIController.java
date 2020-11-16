@@ -36,7 +36,7 @@ public class RestAPIController {
         this.clientService = clientService;
     }
 
-    //Rooms ---------------------------------------------------------------------
+    //Rooms Mappins ---------------------------------------------------------------------
     @GetMapping("/flat")
     List<RoomModel> showAllRooms() {
         return roomService.showAllRooms();

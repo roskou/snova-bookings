@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { logIn, logOut, client, status_button } from 'redux/actions.js';
 import LoginService from 'services/LoginService'
-import { Button, Modal, ModalBody } from "reactstrap";
+import { FormGroup, Input, Button, Modal, ModalBody } from "reactstrap";
 
 
 
@@ -57,15 +57,15 @@ export class SignUpModal extends React.Component {
             <h4 className="title title-up">Enter your registred Email</h4>
           </div>
           <ModalBody>
-            <div className="justify-content-center">
-              <input ref={this.userEmail} placeholder="Email..." type="email" ></input>
+            <div className="text-center p-4">
+              <FormGroup>
+                <input className="form-control input-group-text" ref={this.userEmail} placeholder="Email..." type="email" ></input>
+              </FormGroup>
               <h3>{this.props.log.title || 'Not logged'}</h3>
-             
+              {this.props.log.title ? (<Button onClick={this.logOutEvent}> Log Out</Button>) : (<Button onClick={this.logInEvent}>Log In</Button>)}
             </div>
           </ModalBody>
-          <div className="modal-footer">
-                  {this.props.log.title ? (<Button onClick={this.logOutEvent}> Log Out</Button>) : (<Button onClick={this.logInEvent}>Log In</Button>)}
-          </div>
+
         </Modal>
       </>
 
@@ -81,7 +81,7 @@ const mapStateToProps = state => ({
   log: state.log,
   clientModel: state.clientModel,
   buttonCheck: state.buttonCheck,
-  
+
 });
 
 const mapDispatchToProps = {
@@ -89,7 +89,7 @@ const mapDispatchToProps = {
   logOut,
   client,
   status_button,
-  
+
 };
 
 const LogUserContainer = connect(

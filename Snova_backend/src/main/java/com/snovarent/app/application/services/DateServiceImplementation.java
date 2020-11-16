@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,19 +26,10 @@ public class DateServiceImplementation implements DateService {
         this.repository = repository;
     }
 
-
-//    @Override
-//    public double calculateTotalPrice(Date checkIn, Date checkOut, double pricePerNight) {
-//        long nights = getDaysBetweenTwoDates(checkIn, checkOut);
-//        double totalPrice = nights * pricePerNight;
-//        return totalPrice;
-//    }
-
     @Override
-    public Date stringToDate(String date) {
-        return Date.valueOf( LocalDate.parse(date, formatoDeEntrada).format(formatoDeSalida) );
+    public long getDaysBetweenTwoDates(Date date1, Date date2) {
+        return TimeUnit.DAYS.convert((date2.getTime() - date1.getTime()), TimeUnit.MILLISECONDS);
     }
-
 
     @Override
     public List<Date> bookingDatesGeneratorByID(long id) {

@@ -16,35 +16,30 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
-//TODO Calculo de coste de reserva.
-// * sabado y domingo 15% mas caro
-// * Apartir de 7 dias 10% de descuento
 
 @Service
 public class CostServiceImplementation implements CostService {
 
 
-    // Repositories & Factories needed ------------------------------
+    // Repositories, Services & Factories needed ------------------------------
     CostRepository costRepository;
     RoomRepository roomRepository;
     BookingRepository bookingRepository;
     CostFactory factory;
+    DateService dateService;
 
     // Constructor --------------------------------------------------
     @Autowired
-    public CostServiceImplementation(CostRepository costRepository, RoomRepository roomRepository, CostFactory factory, BookingRepository bookingRepository) {
+    public CostServiceImplementation(CostRepository costRepository, RoomRepository roomRepository, CostFactory factory, BookingRepository bookingRepository, DateService dateService) {
         this.costRepository = costRepository;
         this.roomRepository = roomRepository;
         this.bookingRepository = bookingRepository;
         this.factory = factory;
+        this.dateService = dateService;
     }
 
-    @Override
-    public long getDaysBetweenTwoDates(Date date1, Date date2) {
-        return TimeUnit.DAYS.convert((date2.getTime() - date1.getTime()), TimeUnit.MILLISECONDS);
-    }
+
 
     @Override
     public InvoiceDTO getInvoice(CostDTO costData) {
@@ -63,7 +58,7 @@ public class CostServiceImplementation implements CostService {
         Date start = costData.preCheckIn;
         Date end = costData.preCheckOut;
 
-        long totalDays = getDaysBetweenTwoDates(start, end);
+        long totalDays = dateService.getDaysBetweenTwoDates(start, end);
         double defaultFlatPrice = totalDays * roomEntity.getPrecio();
 
         InvoiceDTO invoice = new InvoiceDTO();
@@ -73,7 +68,7 @@ public class CostServiceImplementation implements CostService {
         double additionalCharges = 0;
 
         for (CostEntity costEntity : costEntities) {
-            long daysToApplyDiscount = getDaysToApplyOffer(start, end, costEntity.getStarDate(),costEntity.getEndDate()); //definimos cuantos dias hay para cada tipo de negocio
+            long daysToApplyDiscount = daysApplyCharges(start, end, costEntity.getStarDate(),costEntity.getEndDate()); //definimos cuantos dias hay para cada tipo de negocio
             float currentCharges = 0;
 
 
@@ -100,19 +95,19 @@ public class CostServiceImplementation implements CostService {
     }
 
     @Override
-    public long getDaysToApplyOffer(Date checkIn, Date checkOut, Date startDateDiscount, Date endDateDiscount){
+    public long daysApplyCharges(Date checkIn, Date checkOut, Date startDateDiscount, Date endDateDiscount){
         long days = 1;
         if ((startDateDiscount.before(checkIn) || startDateDiscount.equals(checkIn)) && (checkOut.before(endDateDiscount) || checkOut.equals(endDateDiscount))){
-            days = getDaysBetweenTwoDates(checkIn, checkOut);
+            days = dateService.getDaysBetweenTwoDates(checkIn, checkOut);
         }
         else if ((startDateDiscount.before(checkIn) || startDateDiscount.equals(checkIn)) && (checkIn.before(endDateDiscount) || checkIn.equals(endDateDiscount)) && (endDateDiscount.before(checkOut) || endDateDiscount.equals(checkOut))){
-            days = getDaysBetweenTwoDates(checkIn, endDateDiscount) + 1;
+            days = dateService.getDaysBetweenTwoDates(checkIn, endDateDiscount) + 1;
         }
         else if ((checkIn.before(startDateDiscount) || checkIn.equals(startDateDiscount))  && (endDateDiscount.before(checkOut) || endDateDiscount.equals(checkOut))){
-            days = getDaysBetweenTwoDates(startDateDiscount, endDateDiscount) ;
+            days = dateService.getDaysBetweenTwoDates(startDateDiscount, endDateDiscount) ;
         }
         else if ((checkIn.before(startDateDiscount) || checkIn.equals(startDateDiscount)) && (startDateDiscount.before(checkOut) || startDateDiscount.equals(checkOut)) && (checkOut.before(endDateDiscount) || checkOut.equals(endDateDiscount))){
-            days = getDaysBetweenTwoDates(startDateDiscount, checkOut);
+            days = dateService.getDaysBetweenTwoDates(startDateDiscount, checkOut);
         }
         return days;
     }
@@ -141,19 +136,5 @@ public class CostServiceImplementation implements CostService {
         System.out.println(generatedString);
         return generatedString;
     }
-//    @Override
-//    public float calculateCost(CostDTO costData) {
-//
-//        Date start = Date.valueOf(costData.getPreCheckIn());
-//        Date end = Date.valueOf(costData.getPreCheckOut());
-//
-//
-//        long nights = getDaysBetweenTwoDates(start, end);
-//        long totalPrice = nights * costData.getPrecio();
-//        System.out.println("night: " + nights + "Precio Hab: " + costData.getPrecio() + "fecha Entrada: " + start + "fecha Salida: " + end + "total: " + totalPrice);
-//        return totalPrice;
-//    }
-
-
 
 }

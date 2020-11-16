@@ -30,6 +30,10 @@ public class RoomModel {
         setM2 (m2);
         setLocalidad (localidad);
     }
+
+    public RoomModel() {
+    }
+
     public RoomModel(long id){
         setId (id);
     }

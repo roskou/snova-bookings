@@ -66,11 +66,11 @@ class ThankYouPage extends Component {
                             <QRCode
                                 bgColor="#FFFFFF"
                                 fgColor="#000000"
-                                level="Q"
+                                level="M"
                                 className="QRCode"
-                                value={"BEGIN:VEVENT\nSUMMARY:" + this.props.invoice.roomName + "\nDTSTART:" + this.props.invoice.checkIn.toISOString() +
+                                value={"BEGIN:VCALENDAR\nVERSION:2.0\nCALSCALE:GREGORIAN\nBEGIN:VEVENT\nSUMMARY:" + this.props.invoice.roomName + "\nDTSTART:" + this.props.invoice.checkIn.toISOString() +
                                     "\nDTEND:" + this.props.invoice.checkOut.toISOString() +
-                                    "\nLOCATION:" + this.props.invoice.roomLocation + "\nSTATUS:CONFIRMED\nEND:VEVENT"}
+                                    "\nLOCATION:" + this.props.invoice.roomLocation + "\nSTATUS:CONFIRMED\nEND:VEVENT\nEND:VCALENDAR"}
                             />
                             <div>
                             <h1>Thanks for you booking {this.props.client.nombre}!.</h1>

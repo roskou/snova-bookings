@@ -48,7 +48,8 @@ const App = () => {
         <Wrapper>
           <Title>
           {/* <img src={require('assets/img/logo.png')} /> */}
-          <p>BIENVENIDOS</p>
+          <p>SNOVA BOOKINGS</p>
+          Enjoy unique experiences
           
           </Title>
           <Subtitle>
