@@ -11,6 +11,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -24,13 +25,14 @@ public class DateServiceTest {
 
     @Autowired
     private DateService dateservice;
+    @MockBean
     private BookingRepository bookingRepository;
 
     @Test
     @DisplayName("Generates Dates Between 2 Dates")
     public void generatorDatesTest() {
 
-            BookingModel bookingID5 = new BookingModel (5, Date.valueOf("2021-01-01"), Date.valueOf("2021-01-05"), 120,
+            BookingModel booking = new BookingModel (5, Date.valueOf("2021-01-01"), Date.valueOf("2021-01-06"), 120,
                     new ClientModel(3,"Oscar", "Lara", "roskou@gmail.com", ""),
                     new RoomModel ( 4,"El pepinillo", "No encontraras una casa mas larga y mas verde",
                             600, new RoomTypeModel(1, "Wild Nature", "Maravillosa habitación standar con vistas Increibles"), 1, 40, "MALAGA")
@@ -38,8 +40,8 @@ public class DateServiceTest {
 
             List<Date[]> Bookdates = new ArrayList();
             Date bookDate[] = new Date[2];
-            bookDate[0] = bookingID5.getFechaIn ();
-            bookDate[1] = bookingID5.getFechaOut();
+            bookDate[0] = booking.getFechaIn ();
+            bookDate[1] = booking.getFechaOut();
             Bookdates.add(bookDate);
             List<Date>  days = new ArrayList ();
             days.add (Date.valueOf ("2021-01-01"));
@@ -48,8 +50,8 @@ public class DateServiceTest {
             days.add (Date.valueOf ("2021-01-04"));
             days.add (Date.valueOf ("2021-01-05"));
             when(bookingRepository.dateBookingsByRoom (5)).thenReturn (Bookdates);
-            List<Date> result = dateservice.bookingDatesGeneratorByID(bookingID5.getId ());
-            //Assert.assertEquals(days, result);
+            List<Date> result = dateservice.bookingDatesGeneratorByID(booking.getId ());
+            assertEquals(days, result);
         }
 
     @Test

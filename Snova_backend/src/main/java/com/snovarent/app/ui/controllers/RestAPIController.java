@@ -9,7 +9,10 @@ import com.snovarent.app.application.models.RoomModel;
 import com.snovarent.app.application.models.RoomTypeModel;
 import com.snovarent.app.application.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.sql.Date;
 import java.util.List;
@@ -73,17 +76,16 @@ public class RestAPIController {
     }
 
     //Login Mappings-------------------------------------------------------------------
-    @PostMapping("/login")
-    public ClientModel checkEmail(@RequestBody LoginDTO login) {
 
-        System.out.println("Login DATA:" + login.toString());
+    @RequestMapping(value="/login", method=RequestMethod.POST, produces="application/json")
+    public ResponseEntity<ClientModel> checkEmail(@RequestBody LoginDTO login,  UriComponentsBuilder builder) throws Exception {
 
         try {
             ClientModel client = clientService.showClientByEmail(login.getEmail());
-            return client;
+            return new ResponseEntity(client, HttpStatus.OK);
 
-        }catch (Throwable ex) {
-           return new ClientModel();
+        }catch (Exception ex) {
+            return new ResponseEntity("User Email not Found", HttpStatus.NOT_FOUND);
         }
 
     }
