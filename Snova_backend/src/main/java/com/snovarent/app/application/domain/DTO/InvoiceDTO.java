@@ -15,10 +15,12 @@ public class InvoiceDTO {
     public List<InvoiceRowDTO> invoiceRows;
 
     public InvoiceDTO() {
-        this.invoiceRows = new ArrayList<>();
+
         this.finalPrice = 0;
         this.additionalCharges = 0;
+        this.invoiceRows = new ArrayList<>();
     }
+
 
     public double getFinalPrice() {
         return finalPrice;

@@ -2,7 +2,7 @@ package com.snovarent.app.ui.controllers;
 
 
 import com.snovarent.app.ProjectApplication;
-import com.snovarent.app.application.services.CostService;
+import com.snovarent.app.application.services.UtilsService;
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = ProjectApplication.class)
     class CostAPIControllerTest {
     @MockBean
-    private CostService mockCostService;
+    private UtilsService mockUtilsService;
     @Autowired
     private WebApplicationContext context;
     @Autowired
@@ -46,7 +46,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     @Test
     public void ShouldGenerateCupon() throws  Exception{
         String theCupon="ABCD123";
-        when(mockCostService.cuponGenerator()).thenReturn(theCupon);
+        when(mockUtilsService.cuponGenerator()).thenReturn(theCupon);
         mockMvc.perform(get("/api/cupon")
                 .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
