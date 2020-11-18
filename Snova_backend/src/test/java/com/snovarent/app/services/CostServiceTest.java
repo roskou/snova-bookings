@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -19,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = ProjectApplication.class)
 public class CostServiceTest {
 
-    DateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
 
     @Autowired
     private CostService costService;
@@ -29,38 +26,65 @@ public class CostServiceTest {
          public void Return0DAYChargeOrOffer() throws Exception {
             Date checkIn = Date.valueOf("2021-05-01");
             Date checkOut = Date.valueOf("2021-05-31");
-            Date offerIn = Date.valueOf("2021-05-31");
-            Date offerOut = Date.valueOf("2021-06-01");
-            assertEquals(0, costService.daysApplyCharges(checkIn, checkOut, offerIn, offerOut));
+            Date chargeIn = Date.valueOf("2021-05-31");
+            Date chargeOut = Date.valueOf("2021-06-01");
+            assertEquals(0, costService.daysApplyCharges(checkIn, checkOut, chargeIn, chargeOut));
     }
 
-        @Test //Testing Dates: offerIn == checkIn  == checkOut < chargeOut
+        @Test //Testing Dates: chargeIn == checkIn  == checkOut < chargeOut
         public void Return1DAYChargeOrOffer() throws Exception {
             Date checkIn =  Date.valueOf("2021-05-01");
             Date checkOut =  Date.valueOf("2021-05-02");
-            Date offerIn = Date.valueOf("2021-05-01");
-            Date offerOut =  Date.valueOf("2021-05-10");
-            assertEquals(1, costService.daysApplyCharges(checkIn, checkOut, offerIn, offerOut));
+            Date chargeIn = Date.valueOf("2021-05-01");
+            Date chargeOut =  Date.valueOf("2021-05-10");
+            assertEquals(1, costService.daysApplyCharges(checkIn, checkOut, chargeIn, chargeOut));
         }
 
-         @Test //Testing Dates: //Testing: checkIn =< chargeIn < checkOut < chargeOut
+         @Test //Testing Dates: --Testing: checkIn =< chargeIn < checkOut < chargeOut
          public void Return6DAYChargeOrOffer() throws Exception {
             Date checkIn =  Date.valueOf("2021-05-01");
             Date checkOut =  Date.valueOf("2021-05-08");
-            Date offerIn = Date.valueOf("2021-05-02");
-            Date offerOut =  Date.valueOf("2021-05-23");
-            assertEquals(6, costService.daysApplyCharges(checkIn, checkOut, offerIn, offerOut));
+            Date chargeIn = Date.valueOf("2021-05-02");
+            Date chargeOut =  Date.valueOf("2021-05-23");
+            assertEquals(6, costService.daysApplyCharges(checkIn, checkOut, chargeIn, chargeOut));
     }
 
-        @Test //Testing Dates: //Testing: checkIn < offerIn < checkOut < offerOut
+        @Test //Testing Dates: --Testing: checkIn < chargeIn < checkOut < chargeOut
         public void Return4DAYChargeOrOffer() throws Exception {
             Date checkIn =  Date.valueOf("2021-05-01");
             Date checkOut =  Date.valueOf("2021-05-26");
-            Date offerIn = Date.valueOf("2021-05-20");
-            Date offerOut =  Date.valueOf("2021-05-24");
-            assertEquals(4, costService.daysApplyCharges(checkIn, checkOut, offerIn, offerOut));
+            Date chargeIn = Date.valueOf("2021-05-20");
+            Date chargeOut =  Date.valueOf("2021-05-24");
+            assertEquals(4, costService.daysApplyCharges(checkIn, checkOut, chargeIn, chargeOut));
     }
 
+
+       @Test //Testing: checkIn  < checkOut < chargeIn < chargeOut
+       public void Return2DAYChargeOrOffer() throws Exception {
+             Date checkIn = Date.valueOf("2020-03-01");
+            Date checkOut = Date.valueOf("2020-03-15");
+            Date chargeIn = Date.valueOf("2020-03-13");
+            Date chargeOut = Date.valueOf("2020-05-01");
+            assertEquals(2, costService.daysApplyCharges(checkIn, checkOut, chargeIn, chargeOut));
+    }
+
+      @Test //Testing: chargeIn < checkIn  < checkOut < chargeOut
+      public void Return31DAYChargeOrOffer() throws Exception {
+            Date checkIn = Date.valueOf("2020-01-01");
+            Date checkOut = Date.valueOf("2020-01-31");
+            Date chargeIn = Date.valueOf("2019-12-01");
+            Date chargeOut = Date.valueOf("2020-02-01");
+            assertEquals(30, costService.daysApplyCharges(checkIn, checkOut, chargeIn, chargeOut));
+    }
+
+      @Test //Testing: checkIn =< chargeIn < chargeOut < checkOut
+      public void ShouldReturn6DAYChargeOrOffer() throws Exception {
+             Date checkIn = Date.valueOf("2020-01-20");
+            Date chargeIn = Date.valueOf("2020-01-20");
+            Date chargeOut = Date.valueOf("2020-01-25");
+            Date checkOut = Date.valueOf("2020-01-26");
+            assertEquals(6, costService.daysApplyCharges(checkIn, checkOut, chargeIn, chargeOut));
+    }
 
 
 

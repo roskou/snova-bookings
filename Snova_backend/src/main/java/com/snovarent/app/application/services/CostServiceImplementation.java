@@ -90,7 +90,6 @@ public class CostServiceImplementation implements CostService {
         }
         invoice.additionalCharges = additionalCharges;
         invoice.finalPrice = defaultFlatPrice + additionalCharges;
-        System.out.println(invoice.toString());
         return invoice;
     }
 
