@@ -32,7 +32,7 @@ public class InvoiceServiceTest {
     }
 
     @Test
-    public void InvoiceCheck(){
+    public void InvoiceCheckGeneralDiscounts(){
 
         InvoiceDTO invoiceDTO = new InvoiceDTO();
 
@@ -45,6 +45,30 @@ public class InvoiceServiceTest {
         Date start = Date.valueOf("2021-01-01");
         Date end = Date.valueOf("2021-01-02");
         long clientBookings = 1;
+        int pax = 4;
+        assertThat(costServiceImplementation.makeInvoice(start, end, clientBookings, pax, room, appliedOffersAndDiscounts).getFinalPrice())
+                .isEqualTo(120);
+        assertThat(costServiceImplementation.makeInvoice(start, end, clientBookings, pax, room, appliedOffersAndDiscounts).getAdditionalCharges())
+                .isEqualTo(20);
+
+
+
+    }
+
+    @Test
+    public void InvoiceCheckGeneralFidelityDiscounts(){
+
+        InvoiceDTO invoiceDTO = new InvoiceDTO();
+
+        List<CostEntity> appliedOffersAndDiscounts = new ArrayList<>();
+
+        appliedOffersAndDiscounts.add(new CostEntity (1, Date.valueOf("2021-01-04"), Date.valueOf("2021-10-01"),"Descuento fidelidad", 0, 0, 3, 0,  0.2));
+
+        RoomTypeEntity type = new RoomTypeEntity(1,"SpaceFlat","Una casa que Flota");
+        RoomEntity room = new RoomEntity(1,"La Casa de Chocolate","Una Casa para comersela",100,type,4,100,"BARCELONA");
+        Date start = Date.valueOf("2021-01-01");
+        Date end = Date.valueOf("2021-01-02");
+        long clientBookings = 4;
         int pax = 4;
         assertThat(costServiceImplementation.makeInvoice(start, end, clientBookings, pax, room, appliedOffersAndDiscounts).getFinalPrice())
                 .isEqualTo(120);
