@@ -44,7 +44,7 @@ public class BookingServiceImplementation implements BookingService {
         ClientEntity clientEntity = clientRepository.findById(dto.cliente_id);
 
         CostDTO dtoCost = new CostDTO(dto.fechaIn, dto.fechaOut, dto.cliente_id, dto.id_habitacion);
-        double finalPrice = costService.getInvoice(dtoCost).finalPrice;
+        double finalPrice = costService.getInvoiceData(dtoCost).finalPrice;
 
         BookingEntity bookingEntity = new BookingEntity();
         bookingEntity.setFechaIn(dto.fechaIn);

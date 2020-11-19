@@ -39,7 +39,7 @@ public class CostServiceImplementation implements CostService {
     }
 
     @Override
-    public InvoiceDTO getInvoice(CostDTO costData){
+    public InvoiceDTO getInvoiceData(CostDTO costData){
 
         /// Get all Data to aply the Cost Logic
         List<CostEntity> appliedOffersAndDiscounts = costRepository.test(costData.preCheckIn, costData.preCheckOut);

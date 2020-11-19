@@ -24,6 +24,7 @@ public class InvoiceCalcServiceImplementation implements InvoiceCalcService{
     @Override
     public double getDefaultFlatBookingPrice(double pricePerNight, Date start, Date end ){
         long nights = dateService.getDaysBetweenTwoDates(start, end);
+        System.out.println("+++++++++ nights:" + nights + "pricePerNight:" + pricePerNight);
         return pricePerNight * nights;
     }
 
@@ -33,6 +34,7 @@ public class InvoiceCalcServiceImplementation implements InvoiceCalcService{
 
         InvoiceDTO invoice = new InvoiceDTO();
         invoice.invoiceRows.add(new InvoiceRowDTO("Default Price", nights, defaultFlatPrice));
+        System.out.println("+++++++++ nights:" + nights + "pricePerNight:" + defaultFlatPrice);
 
 
         double additionalCharges = 0;
@@ -63,7 +65,7 @@ public class InvoiceCalcServiceImplementation implements InvoiceCalcService{
     }
 
     public double calcFinalPrice(double defaultFlatPrice, double additionalCharges){
-        return defaultFlatPrice * additionalCharges;
+        return defaultFlatPrice + additionalCharges;
     }
 
 

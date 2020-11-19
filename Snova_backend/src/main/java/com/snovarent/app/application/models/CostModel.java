@@ -14,11 +14,11 @@ public class CostModel {
         private Integer npax;
         private Integer action;
         private Integer days;
-        private float factor;
+        private double factor;
 
 
 
-        public CostModel(long id, Date starDate, Date endDate, String description, Integer nbookings, Integer npax, Integer action, Integer days, float factor) {
+        public CostModel(long id, Date starDate, Date endDate, String description, Integer nbookings, Integer npax, Integer action, Integer days, double factor) {
             setId (id);
             setStarDate (starDate);
             setEndDate (endDate);
@@ -31,7 +31,7 @@ public class CostModel {
         }
 
 
-        public CostModel(Date starDate, Date endDate, String description, Integer nbookings, Integer npax, Integer action, Integer days, float factor) {
+        public CostModel(Date starDate, Date endDate, String description, Integer nbookings, Integer npax, Integer action, Integer days, double factor) {
 
             setStarDate (starDate);
             setEndDate (endDate);
@@ -110,13 +110,13 @@ public class CostModel {
         this.days = days;
     }
 
-    public float getFactor() {
+    public double getFactor() {
         return factor;
     }
 
 
 
-    public void setFactor(float factor) {
+    public void setFactor(double factor) {
         this.factor = factor;
     }
 

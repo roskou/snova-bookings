@@ -14,7 +14,22 @@ public class CostEntity {
     private Integer npax;
     private Integer action;
     private Integer days;
-    private float factor;
+    private double factor;
+
+    public CostEntity(long id, Date starDate, Date endDate, String description, Integer nbookings, Integer npax, Integer action, Integer days, double factor) {
+        this.id = id;
+        this.starDate = starDate;
+        this.endDate = endDate;
+        this.description = description;
+        this.nbookings = nbookings;
+        this.npax = npax;
+        this.action = action;
+        this.days = days;
+        this.factor = factor;
+    }
+
+    public CostEntity() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -99,11 +114,11 @@ public class CostEntity {
 
     @Basic
     @Column(name = "factor")
-    public float getFactor() {
+    public double getFactor() {
         return factor;
     }
 
-    public void setFactor(float factor) {
+    public void setFactor(double factor) {
         this.factor = factor;
     }
 

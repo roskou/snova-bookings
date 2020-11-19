@@ -12,7 +12,7 @@ public interface CostService {
 
 
 
-    InvoiceDTO getInvoice(CostDTO costData);
+    InvoiceDTO getInvoiceData(CostDTO costData);
 
     InvoiceDTO makeInvoice(Date start, Date end, long clientBookings, int pax, RoomEntity room, List<CostEntity> appliedOffersAndDiscounts);
 

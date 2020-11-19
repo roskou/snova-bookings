@@ -20,7 +20,7 @@ public class CostAPIController {
 
     // Constructor -----------------------------------------------------
     @Autowired
-    public CostAPIController( CostService costService) {
+    public CostAPIController( CostService costService, UtilsService utilsService) {
 
         this.costService = costService;
         this.utilsService = utilsService;
@@ -36,7 +36,7 @@ public class CostAPIController {
 
     @PostMapping("/invoice")
     InvoiceDTO calculateCost(@RequestBody CostDTO costData) {
-        return costService.getInvoice(costData);
+        return costService.getInvoiceData(costData);
     }
 }
 
