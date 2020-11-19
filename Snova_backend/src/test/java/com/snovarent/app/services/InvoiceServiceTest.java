@@ -49,7 +49,7 @@ public class InvoiceServiceTest {
         assertThat(costServiceImplementation.makeInvoice(start, end, clientBookings, pax, room, appliedOffersAndDiscounts).getFinalPrice())
                 .isEqualTo(120);
         assertThat(costServiceImplementation.makeInvoice(start, end, clientBookings, pax, room, appliedOffersAndDiscounts).getAdditionalCharges())
-                .isEqualTo(4);
+                .isEqualTo(20);
 
 
 
