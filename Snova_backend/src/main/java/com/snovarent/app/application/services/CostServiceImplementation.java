@@ -38,28 +38,27 @@ public class CostServiceImplementation implements CostService {
         this.invoiceCalcService = invoiceCalcService;
     }
 
-
-
-
     @Override
-    public InvoiceDTO getInvoice(CostDTO costData) {
-
-        List<CostEntity> costEntities = costRepository.test(costData.preCheckIn, costData.preCheckOut);
-        RoomEntity roomEntity = roomRepository.findById(costData.idRoom);
-
-        int pax = roomEntity.getNumpersonas();
-        long clientBookings = getBookingsOfClient(costData.getClient());
-
-
+    public InvoiceDTO getInvoice(CostDTO costData){
+        List<CostEntity> appliedOffersAndDiscounts = costRepository.test(costData.preCheckIn, costData.preCheckOut);
+        RoomEntity room = roomRepository.findById(costData.idRoom);
         Date start = costData.preCheckIn;
         Date end = costData.preCheckOut;
+        int pax = room.getNumpersonas();
+        long clientBookings = getBookingsOfClient(costData.getClient());
 
-        double defaultFlatPrice = invoiceCalcService.getDefaultFlatBookingPrice(roomEntity.getPrecio(),start,end);
+        return makeInvoice(start, end, clientBookings, pax, room, appliedOffersAndDiscounts);
+    }
 
-        InvoiceDTO pepe = invoiceCalcService.fillInvoice( pax, clientBookings, roomEntity.getPrecio(), start, end, costEntities, defaultFlatPrice);
+    @Override
+    public InvoiceDTO makeInvoice(Date start, Date end, long clientBookings, int pax, RoomEntity room, List<CostEntity> appliedOffersAndDiscounts) {
 
-        pepe.finalPrice = invoiceCalcService.calcFinalPrice(defaultFlatPrice, pepe.additionalCharges);
-        return pepe;
+        double defaultFlatPrice = invoiceCalcService.getDefaultFlatBookingPrice(room.getPrecio(),start,end);
+
+        InvoiceDTO invoice = invoiceCalcService.fillInvoice( pax, clientBookings, room.getPrecio(), start, end, appliedOffersAndDiscounts, defaultFlatPrice);
+
+        invoice.finalPrice = invoiceCalcService.calcFinalPrice(defaultFlatPrice, invoice.additionalCharges);
+        return invoice;
     }
 
 
