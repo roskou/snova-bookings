@@ -4,14 +4,18 @@ package com.snovarent.app.services;
 import com.snovarent.app.ProjectApplication;
 import com.snovarent.app.application.domain.DTO.CostDTO;
 import com.snovarent.app.application.domain.DTO.InvoiceDTO;
-import com.snovarent.app.application.domain.repositories.ClientRepository;
+import com.snovarent.app.application.domain.entities.CostEntity;
+import com.snovarent.app.application.domain.entities.RoomEntity;
+
+import com.snovarent.app.application.domain.entities.RoomTypeEntity;
 import com.snovarent.app.application.services.CostServiceImplementation;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -21,9 +25,6 @@ public class InvoiceServiceTest {
 
     @Autowired
     private CostServiceImplementation costServiceImplementation;
-
-    @MockBean
-    private ClientRepository clientRepository;
 
 
 
@@ -37,7 +38,19 @@ public class InvoiceServiceTest {
     public void InvoiceCheck(){
         CostDTO costdata = new CostDTO(Date.valueOf("2021-01-01"),Date.valueOf("2021-01-07"),3,1);
         InvoiceDTO invoiceDTO = new InvoiceDTO();
-        when(costServiceImplementation.getInvoice(costdata)).thenReturn(invoiceDTO);
+
+        List<CostEntity> appliedOffersAndDiscounts = new ArrayList<>();
+
+        appliedOffersAndDiscounts.add="";
+
+        RoomTypeEntity type = new RoomTypeEntity(1,"SpaceFlat","Una casa que Flota");
+        RoomEntity room = new RoomEntity(1,"La Casa de Chocolate","Una Casa para comersela",200,type,4,100,"BARCELONA");
+        Date start = Date.valueOf("2021-01-01");
+        Date end = Date.valueOf("2021-01-07");
+        long clientBookings = 1;
+        int pax = 4;
+        when(costServiceImplementation.makeInvoice(start, end, clientBookings, pax, room, appliedOffersAndDiscounts)).thenReturn(invoiceDTO);
+
         assertThat(invoiceDTO.getFinalPrice()).isEqualTo(1000);
 
     }
